@@ -1,0 +1,10 @@
+﻿  practica12.cpp
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\window.h(12): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\window.h(13): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(556): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(763): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(781): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(793): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(809): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+d:\users\desktop\tareas u\gráfica\proyecto\practica1\practica1\practica12.cpp(820): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+  Practica1.vcxproj -> D:\Users\Desktop\Tareas U\Gráfica\PROYECTO\Practica1\Debug\Practica1.exe
