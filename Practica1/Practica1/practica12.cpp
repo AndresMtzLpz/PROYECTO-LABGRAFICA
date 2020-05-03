@@ -652,7 +652,7 @@ int main()
 		mainWindow.swapBuffers();
 	}
 
-	return 1;
+	return 0;
 }
 
 void inputKeyframes(bool* keys)
