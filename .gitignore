@@ -1,6 +1,14 @@
+#Proyecto final de CGIHC
+#FI
+
+# Directorios de compilación
 Practica1/Debug/
 Practica1/Practica1/Debug/
+
+#Librerias
 Practica1/Practica1/glm/
 Practica1/Practica1/include/
 Practica1/Practica1/lib/
+
+#Otros
 Practica1/.vs
