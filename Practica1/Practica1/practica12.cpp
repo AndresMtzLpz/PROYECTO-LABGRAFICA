@@ -1,6 +1,6 @@
 /*
 Semestre 2020-2
-Animación por keyframes
+Animaciï¿½n por keyframes
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -24,7 +24,7 @@ Animación por keyframes
 #include "Shader_light.h"
 #include "Camera.h"
 #include "Texture.h"
-//para iluminación
+//para iluminaciï¿½n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -58,7 +58,8 @@ float	movBatman_x = 0.0f, movBatman_y = 0.0f, movBatman_z = 0.0f;
 float giroBatman = 0;
 glm::vec3 posBatman = glm::vec3(posXBatman, posYBatman, posZBatman);
 
-
+/////VARIABLE QUIOSCO////////
+glm::vec3 posQuiosco;
 
 
 
@@ -87,7 +88,7 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 
 
-/*Declaración de modelos a usar*/
+/*Declaraciï¿½n de modelos a usar*/
 Model Blackhawk_M;
 Model Helices_M;
 Model Helicoptero_M;
@@ -105,6 +106,42 @@ Model BatmanBrazoI_M;  //9
 Model BatmanManoD_M;   //10
 Model BatmanManoI_M;   //11
 Model BatmanCapa_M;    //12
+
+
+///////MODELOS QUIOSCO//////////////
+Model Base01_M;  //1
+Model Base02_M; //2
+Model Piso_M;   //3
+Model Barda01_M;//4
+Model Barda02_M;  //5
+Model Barda03_M;    //6
+Model Poste01_M;    //7
+Model Poste02_M;    //8
+Model Poste03_M;    //9
+Model Poste04_M;    //10
+Model Poste05_M;    //11
+Model Poste06_M;    //12
+Model Poste07_M;    //13
+Model Poste08_M;    //14
+Model Poste09_M;    //15
+Model Poste10_M;    //16
+Model Poste11_M;    //17
+Model Poste12_M;    //18
+Model Poste13_M;    //19
+Model Poste14_M;    //20
+Model Poste15_M;    //21
+Model Poste16_M;    //22
+Model Techo01_M;  //23
+Model Techo02_M;  //24
+Model Techo03_M;  //25
+Model Techo04_M;  //26
+Model Techo05_M;  //27
+Model Techo06_M;  //28
+Model Techo07_M;  //29
+Model Escalon01_M;//30
+Model Escalon02_M;//31
+Model Escalon03_M;//32
+Model Escalon04_M;//33
 
 
 ///////MODELO NAVE ANAKIN ////////////////
@@ -133,7 +170,7 @@ static const char* vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
-//cálculo del promedio de las normales para sombreado de Phong
+//cï¿½lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloat * vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -200,7 +237,7 @@ int main()
 	CreateShaders();
 	CreaPiso();
 
-	/*Inicialización para los objetos de animación*/
+	/*Inicializaciï¿½n para los objetos de animaciï¿½n*/
 	animacion = AnimacionKF();
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 5.0f, 0.5f);
@@ -250,12 +287,88 @@ int main()
 	BatmanCapa_M.LoadModel("Models/BatmanCapa.obj");
 
 	////////////////
-	
+
+	///////QUIOSCO LEGO /////
+
+	////////////////
+
+	Base01_M = Model();
+	Base01_M.LoadModel("Models//Quiosco/Base01.obj");
+	Base02_M = Model();
+	Base02_M.LoadModel("Models//Quiosco/Base02.obj");
+	Escalon01_M = Model();
+	Escalon01_M.LoadModel("Models//Quiosco/Escalon01.obj");
+	Escalon02_M = Model();
+	Escalon02_M.LoadModel("Models//Quiosco/Escalon02.obj");
+	Escalon03_M = Model();
+	Escalon03_M.LoadModel("Models//Quiosco/Escalon03.obj");
+	Escalon04_M = Model();
+	Escalon04_M.LoadModel("Models//Quiosco/Escalon04.obj");
+	Piso_M = Model();
+	Piso_M.LoadModel("Models//Quiosco/Piso.obj");
+	Barda01_M = Model();
+	Barda01_M.LoadModel("Models//Quiosco/Barda01.obj");
+	Barda02_M = Model();
+	Barda02_M.LoadModel("Models//Quiosco/Barda02.obj");
+	Barda03_M = Model();
+	Barda03_M.LoadModel("Models//Quiosco/Barda03.obj");
+	Poste01_M = Model();
+	Poste01_M.LoadModel("Models//Quiosco/Poste01.obj");
+	Poste02_M = Model();
+	Poste02_M.LoadModel("Models//Quiosco/Poste02.obj");
+	Poste03_M = Model();
+	Poste03_M.LoadModel("Models//Quiosco/Poste03.obj");
+	Poste04_M = Model();
+	Poste04_M.LoadModel("Models//Quiosco/Poste04.obj");
+	Poste05_M = Model();
+	Poste05_M.LoadModel("Models//Quiosco/Poste05.obj");
+	Poste06_M = Model();
+	Poste06_M.LoadModel("Models//Quiosco/Poste06.obj");
+	Poste07_M = Model();
+	Poste07_M.LoadModel("Models//Quiosco/Poste07.obj");
+	Poste08_M = Model();
+	Poste08_M.LoadModel("Models//Quiosco/Poste08.obj");
+	Poste09_M = Model();
+	Poste09_M.LoadModel("Models//Quiosco/Poste09.obj");
+	Poste10_M = Model();
+	Poste10_M.LoadModel("Models//Quiosco/Poste10.obj");
+	Poste11_M = Model();
+	Poste11_M.LoadModel("Models//Quiosco/Poste11.obj");
+	Poste12_M = Model();
+	Poste12_M.LoadModel("Models//Quiosco/Poste12.obj");
+	Poste13_M = Model();
+	Poste13_M.LoadModel("Models//Quiosco/Poste13.obj");
+	Poste14_M = Model();
+	Poste14_M.LoadModel("Models//Quiosco/Poste14.obj");
+	Poste15_M = Model();
+	Poste15_M.LoadModel("Models//Quiosco/Poste15.obj");
+	Poste16_M = Model();
+	Poste16_M.LoadModel("Models//Quiosco/Poste16.obj");
+	Techo01_M = Model();
+	Techo01_M.LoadModel("Models//Quiosco/Techo01.obj");
+	Techo02_M = Model();
+	Techo02_M.LoadModel("Models//Quiosco/Techo02.obj");
+	Techo03_M = Model();
+	Techo03_M.LoadModel("Models//Quiosco/Techo03.obj");
+	Techo04_M = Model();
+	Techo04_M.LoadModel("Models//Quiosco/Techo04.obj");
+	Techo05_M = Model();
+	Techo05_M.LoadModel("Models//Quiosco/Techo05.obj");
+	Techo06_M = Model();
+	Techo06_M.LoadModel("Models//Quiosco/Techo06.obj");
+	Techo07_M = Model();
+	Techo07_M.LoadModel("Models//Quiosco/Techo07.obj");
+
+
+
+
+
+
 	Nave_M = Model();
 	Nave_M.LoadModel("Models/Anakin.obj");
 
 
-	//luz direccional, sólo 1 y siempre debe de existir
+	//luz direccional, sï¿½lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 								 0.3f, 0.3f, //Intensidad luminosa
 								 0.0f, 0.0f, -1.0f);
@@ -264,23 +377,23 @@ int main()
 
 	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
-	//Declaración de primer luz puntual
+	//Declaraciï¿½n de primer luz puntual
 	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, //Intensidades 
-		2.0f, 1.5f, 1.5f, //Posición de la luz
-		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuación de segundo grado
+		0.0f, 1.0f, //Intensidades
+		2.0f, 1.5f, 1.5f, //Posiciï¿½n de la luz
+		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaciï¿½n de segundo grado
 						//que no den valores complejos
 	pointLightCount++;
 
 
-	/*Declaración de luces tipo spot*/
+	/*Declaraciï¿½n de luces tipo spot*/
 	unsigned int spotLightCount = 0;
 	//linterna
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f, 
-		0.0f, 0.0f, 0.0f, //Posición de la luz
-		0.0f, -1.0f, 0.0f, //Dirección de la luz
-		1.0f, 0.0f, 0.0f,//Atenuación
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f, //Posiciï¿½n de la luz
+		0.0f, -1.0f, 0.0f, //Direcciï¿½n de la luz
+		1.0f, 0.0f, 0.0f,//Atenuaciï¿½n
 		20.0f);
 	spotLightCount++;
 
@@ -325,15 +438,15 @@ int main()
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_ft.tga");
 	skyboxB = Skybox(skyboxFacesB);
 
-	
-	
+
+
 
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 300.0f);
 
-	
+
 
 	///////// DESPEGUE /////////////
 	/*
@@ -359,11 +472,11 @@ int main()
 		//deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 		//////////*/
-		
-		
-		/*Animación para dia y noche*/
 
-		skybox = movimiento.horaDia() >= 6 && movimiento.horaDia() < 18 ? 
+
+		/*Animaciï¿½n para dia y noche*/
+
+		skybox = movimiento.horaDia() >= 6 && movimiento.horaDia() < 18 ?
 			skyboxA : skyboxB;
 
 
@@ -431,7 +544,7 @@ int main()
 		model = glm::rotate(model, animacion.rGiroAvion() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Blackhawk_M.RenderModel(); 
+		Blackhawk_M.RenderModel();
 		spotLights[3].SetPos(posblackhawk);
 
 		////////////BATMAN LEGO DIBUJO//////////////////
@@ -483,7 +596,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanBrazoD_M.RenderModel();
 
-		////MuñecaD
+		////Muï¿½ecaD
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.15f, 0.0f, 0.0f));
 
@@ -506,7 +619,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanBrazoI_M.RenderModel();
 
-		////MuñecaI
+		////Muï¿½ecaI
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.15f, 0.0f, 0.0f));
 
@@ -551,7 +664,7 @@ int main()
 		modelaux = model;
 		glm::mat4 posicionPieD(1.0);
 		posicionPieD = model;
-	
+
 		////PieD
 		posBatman = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posBatman);
@@ -578,7 +691,7 @@ int main()
 		BatmanPieI_M.RenderModel();
 		model = modelaux = posicionTorax;
 
-	
+
 		////Capa
 		posBatman = glm::vec3(0.0, 0.0, 0.0);
 		model = glm::translate(model, posBatman);
@@ -587,6 +700,284 @@ int main()
 		BatmanCapa_M.RenderModel();
 		model = modelaux = posicionTorax;
 
+		////////////////////////////////////////////////
+
+
+		////////////QUIOSCO DIBUJO//////////////////
+
+		////Base01
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
+
+		model = glm::mat4(1.0);
+		glm::mat4 modelauxQ(1.0);
+		model = glm::mat4(1.0);
+		posQuiosco = glm::vec3(0.0, -2.0, -10.0);
+		model = glm::translate(model, posQuiosco);
+		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaX()), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaY()), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Base01_M.RenderModel();
+		glm::mat4 posicionBase(1.0);
+		posicionBase = model;
+
+		////Base02
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Base02_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Escalon01
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Escalon01_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Escalon02
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Escalon02_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Escalon03
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Escalon03_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Escalon04
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Escalon04_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Piso
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Piso_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Barda01
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barda01_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Barda02
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barda02_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Barda03
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barda03_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste01
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste01_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste02
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste02_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste03
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste03_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste04
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste04_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste05
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste05_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste06
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste06_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste07
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste07_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste08
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste08_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste09
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste09_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste10
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste10_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste11
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste11_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste12
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste12_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste13
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste13_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste14
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste14_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste15
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste15_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Poste16
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Poste16_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo01
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo01_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo02
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo02_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo03
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo03_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo04
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo04_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo05
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo05_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo06
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo06_M.RenderModel();
+		model = modelauxQ = posicionBase;
+
+		////Techo07
+		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
+		model = glm::translate(model, posQuiosco);
+		modelauxQ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Techo07_M.RenderModel();
+		model = modelauxQ = posicionBase;
 		////////////////////////////////////////////////
 
 
@@ -610,16 +1001,16 @@ int main()
 		//posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
 		posblackhawk = movimiento.movBlackHawk(0.0, bandera);
 		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Helicoptero_M.RenderModel();
-		
+		Nave_M.RenderModel();
+
 		/* Se deja para recordar lo de traspaencia
-		//Agave ¿qué sucede si lo renderizan antes del coche y de la pista?
+		//Agave ï¿½quï¿½ sucede si lo renderizan antes del coche y de la pista?
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -1.7f, -2.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
