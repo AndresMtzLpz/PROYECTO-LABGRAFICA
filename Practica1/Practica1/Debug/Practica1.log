@@ -1,9 +1,4 @@
 ﻿  practica12.cpp
 C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
 C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\practica12.cpp(321,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\practica12.cpp(339,50): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\practica12.cpp(351,50): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\practica12.cpp(367,49): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\practica12.cpp(378,50): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
   Practica1.vcxproj -> C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Debug\Practica1.exe

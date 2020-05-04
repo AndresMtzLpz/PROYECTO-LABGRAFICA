@@ -39,17 +39,17 @@ Animación por keyframes
 #include "AnimacionKF.h"
 
 const float toRadians = 3.14159265f / 180.0f;
-
+bool bandera;
 /*Variables para movimiento*/
-float movBlackHawkX;
+/*float movBlackHawkX;
 float movBlackHawkY;
 float movBlackHawkZ;
 
-bool bandera;
+
 bool escenario = false;
 int paso;
 float girarBlackHawk;
-float giroHelice;
+float giroHelice;*/
 
 
 //////VARIABLES BATMAN LEGO///////
@@ -114,7 +114,10 @@ Model Nave_M;
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
 AnimacionKF animacion;
+Movimiento movimiento;
 
+Skybox skyboxA;
+Skybox skyboxB;
 Skybox skybox;
 
 Sphere cabeza = Sphere(0.5, 20, 20);
@@ -160,6 +163,25 @@ void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloa
 }
 
 
+void CreaPiso() {
+	unsigned int floorIndices[] = {
+	0, 2, 1,
+	1, 2, 3
+	};
+
+	GLfloat floorVertices[] = {
+		-10.0f, 0.0f, -2.0f,	0.0f,	0.56f,		0.0f, -1.0f, 0.0f,
+		10.0f, 0.0f, -2.0f,		1.0f,	0.56f,		0.0f, -1.0f, 0.0f,
+		-10.0f, 0.0f, 2.0f,		0.0f,	0.36f,		0.0f, -1.0f, 0.0f,
+		10.0f, 0.0f, 2.0f,		1.0f,	0.36f,		0.0f, -1.0f, 0.0f
+
+	};
+
+	Mesh* obj3 = new Mesh();
+	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
+	meshList.push_back(obj3);
+}
+
 
 
 void CreateShaders()
@@ -176,6 +198,7 @@ int main()
 	mainWindow.Initialise();
 
 	CreateShaders();
+	CreaPiso();
 
 	/*Inicialización para los objetos de animación*/
 	animacion = AnimacionKF();
@@ -234,24 +257,30 @@ int main()
 
 	//luz direccional, sólo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+								 0.3f, 0.3f, //Intensidad luminosa
+								 0.0f, 0.0f, -1.0f);
+
+
+
 	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
 	//Declaración de primer luz puntual
 	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f,
-		2.0f, 1.5f, 1.5f,
-		0.3f, 0.2f, 0.1f);
+		0.0f, 1.0f, //Intensidades 
+		2.0f, 1.5f, 1.5f, //Posición de la luz
+		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuación de segundo grado
+						//que no den valores complejos
 	pointLightCount++;
 
+
+	/*Declaración de luces tipo spot*/
 	unsigned int spotLightCount = 0;
 	//linterna
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
+		0.0f, 2.0f, 
+		0.0f, 0.0f, 0.0f, //Posición de la luz
+		0.0f, -1.0f, 0.0f, //Dirección de la luz
+		1.0f, 0.0f, 0.0f,//Atenuación
 		20.0f);
 	spotLightCount++;
 
@@ -284,7 +313,8 @@ int main()
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_up.tga");
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_bk.tga");
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_ft.tga");
-	
+	skyboxA = Skybox(skyboxFacesA);
+
 	////Noche
 	std::vector<std::string> skyboxFacesB;
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_rt.tga");
@@ -293,7 +323,7 @@ int main()
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_up.tga");
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_bk.tga");
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_ft.tga");
-	skybox = Skybox(skyboxFacesB);
+	skyboxB = Skybox(skyboxFacesB);
 
 	
 	
@@ -306,93 +336,35 @@ int main()
 	
 
 	///////// DESPEGUE /////////////
+	/*
 	movBlackHawkZ = 0.0f;
 	movBlackHawkY = 0.0f;
 	movBlackHawkX = 0.0f;
 	bandera = false;
 	paso = 1;
-	girarBlackHawk = 0.0f;
+	girarBlackHawk = 0.0f;*/
 
+	movimiento = Movimiento();
+	movimiento.time();
 
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
-
+		//Se Ejecuta una unica vez por cada ciclo
+		movimiento.time();
+		deltaTime = movimiento.getDeltaTime();
+/*
 		GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime;
 		//deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-		//////////
-		if (bandera) {
-			giroHelice += 15.0f * deltaTime;
-			
-
-			if (giroHelice == 200.0f || movBlackHawkY < 4.5f) {
-				movBlackHawkY += 0.6f * deltaTime;
-			}
-			else {
-
-				switch (paso)
-				{
-				case 1:
-					if (movBlackHawkZ < 5 ) {
-						movBlackHawkZ += sin(0.3) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkZ >= 5 && girarBlackHawk < 90) {
-						girarBlackHawk += 1.0 ;
-					}
-					else
-						paso += 1;
-					break;
-
-				case 2:
-					if (movBlackHawkX > -5) {
-						movBlackHawkX -= sin(0.7) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkX <= -5 && girarBlackHawk < 180) {
-						girarBlackHawk += 1.0 ;
-					}
-					else {
-						///////CAMBIA A DIA EL ESCENARIO ///////
-						paso += 1;
-						skybox = Skybox(skyboxFacesA);
-						
-					}
-						
-					break;
-				case 3:
-					if (movBlackHawkZ > -5) {
-						movBlackHawkZ -= sin(0.4) * 2.5* deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkZ <= 5 && girarBlackHawk < 270) {
-						girarBlackHawk += 1.0;
-					}
-					else
-						paso += 1;
-					break;
-				case 4:
-					if (movBlackHawkX < 5) {
-						movBlackHawkX += sin(0.3) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkX >= 5 && girarBlackHawk < 360) {
-						girarBlackHawk += 1.0 ;
-					}
-					else
-						paso += 1;
-					break;
-				default:
-					/////SE INICIALIZAN VALORES //// VUELVE A NOCHE /////
-					paso = 1;
-					girarBlackHawk = 0;
-					skybox = Skybox(skyboxFacesB);	
-				}	
-			}
-		}
+		//////////*/
 		
+		
+		/*Animación para dia y noche*/
+
+		skybox = movimiento.horaDia() >= 6 && movimiento.horaDia() < 18 ? 
+			skyboxA : skyboxB;
 
 
 		//Recibir eventos del usuario
@@ -437,8 +409,18 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-
 		glm::mat4 model(1.0);
+
+		/*Piso provisinal para probar iluminaciones*/
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		brickTexture.UseTexture();
+		meshList[0]->RenderMesh();
+
+
+
 		/*Helicoptero por keyframes*/
 		model = glm::mat4(1.0);
 		posblackhawk = animacion.movAvion();
@@ -612,24 +594,26 @@ int main()
 
 				//////HELICES ///////////////////////////
 		model = glm::mat4(1.0);
-		posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		//posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		posblackhawk = movimiento.movBlackHawk(0.0, bandera) + glm::vec3(0.0, 0.2, 0.0);
 		model = glm::translate(model, posblackhawk);
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, giroHelice * 100 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, movimiento.getGiroHelice() * 100, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Helices_M.RenderModel();
 
 		/////HELICOPTERO 02 ////////////////////
 		model = glm::mat4(1.0);
-		posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		//posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		posblackhawk = movimiento.movBlackHawk(0.0, bandera);
 		model = glm::translate(model, posblackhawk);
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, girarBlackHawk * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Helicoptero_M.RenderModel();
