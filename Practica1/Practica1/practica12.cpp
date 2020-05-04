@@ -1,6 +1,6 @@
 /*
 Semestre 2020-2
-Animación por keyframes
+Animaciï¿½n por keyframes
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -24,7 +24,7 @@ Animación por keyframes
 #include "Shader_light.h"
 #include "Camera.h"
 #include "Texture.h"
-//para iluminación
+//para iluminaciï¿½n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -39,17 +39,17 @@ Animación por keyframes
 #include "AnimacionKF.h"
 
 const float toRadians = 3.14159265f / 180.0f;
-
+bool bandera;
 /*Variables para movimiento*/
-float movBlackHawkX;
+/*float movBlackHawkX;
 float movBlackHawkY;
 float movBlackHawkZ;
 
-bool bandera;
+
 bool escenario = false;
 int paso;
 float girarBlackHawk;
-float giroHelice;
+float giroHelice;*/
 
 
 //////VARIABLES BATMAN LEGO///////
@@ -88,7 +88,7 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 
 
-/*Declaración de modelos a usar*/
+/*Declaraciï¿½n de modelos a usar*/
 Model Blackhawk_M;
 Model Helices_M;
 Model Helicoptero_M;
@@ -151,7 +151,10 @@ Model Nave_M;
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
 AnimacionKF animacion;
+Movimiento movimiento;
 
+Skybox skyboxA;
+Skybox skyboxB;
 Skybox skybox;
 
 Sphere cabeza = Sphere(0.5, 20, 20);
@@ -167,7 +170,7 @@ static const char* vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
-//cálculo del promedio de las normales para sombreado de Phong
+//cï¿½lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloat * vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -197,6 +200,25 @@ void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloa
 }
 
 
+void CreaPiso() {
+	unsigned int floorIndices[] = {
+	0, 2, 1,
+	1, 2, 3
+	};
+
+	GLfloat floorVertices[] = {
+		-10.0f, 0.0f, -2.0f,	0.0f,	0.56f,		0.0f, -1.0f, 0.0f,
+		10.0f, 0.0f, -2.0f,		1.0f,	0.56f,		0.0f, -1.0f, 0.0f,
+		-10.0f, 0.0f, 2.0f,		0.0f,	0.36f,		0.0f, -1.0f, 0.0f,
+		10.0f, 0.0f, 2.0f,		1.0f,	0.36f,		0.0f, -1.0f, 0.0f
+
+	};
+
+	Mesh* obj3 = new Mesh();
+	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
+	meshList.push_back(obj3);
+}
+
 
 
 void CreateShaders()
@@ -213,8 +235,9 @@ int main()
 	mainWindow.Initialise();
 
 	CreateShaders();
+	CreaPiso();
 
-	/*Inicialización para los objetos de animación*/
+	/*Inicializaciï¿½n para los objetos de animaciï¿½n*/
 	animacion = AnimacionKF();
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 5.0f, 0.5f);
@@ -268,7 +291,7 @@ int main()
 	///////QUIOSCO LEGO /////
 
 	////////////////
-	
+
 	Base01_M = Model();
 	Base01_M.LoadModel("Models//Quiosco/Base01.obj");
 	Base02_M = Model();
@@ -345,26 +368,32 @@ int main()
 	Nave_M.LoadModel("Models/Anakin.obj");
 
 
-	//luz direccional, sólo 1 y siempre debe de existir
+	//luz direccional, sï¿½lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+								 0.3f, 0.3f, //Intensidad luminosa
+								 0.0f, 0.0f, -1.0f);
+
+
+
 	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
-	//Declaración de primer luz puntual
+	//Declaraciï¿½n de primer luz puntual
 	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f,
-		2.0f, 1.5f, 1.5f,
-		0.3f, 0.2f, 0.1f);
+		0.0f, 1.0f, //Intensidades
+		2.0f, 1.5f, 1.5f, //Posiciï¿½n de la luz
+		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaciï¿½n de segundo grado
+						//que no den valores complejos
 	pointLightCount++;
 
+
+	/*Declaraciï¿½n de luces tipo spot*/
 	unsigned int spotLightCount = 0;
 	//linterna
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
 		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, //Posiciï¿½n de la luz
+		0.0f, -1.0f, 0.0f, //Direcciï¿½n de la luz
+		1.0f, 0.0f, 0.0f,//Atenuaciï¿½n
 		20.0f);
 	spotLightCount++;
 
@@ -397,7 +426,8 @@ int main()
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_up.tga");
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_bk.tga");
 	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_ft.tga");
-	
+	skyboxA = Skybox(skyboxFacesA);
+
 	////Noche
 	std::vector<std::string> skyboxFacesB;
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_rt.tga");
@@ -406,106 +436,48 @@ int main()
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_up.tga");
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_bk.tga");
 	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_ft.tga");
-	skybox = Skybox(skyboxFacesB);
+	skyboxB = Skybox(skyboxFacesB);
 
-	
-	
+
+
 
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 300.0f);
 
-	
+
 
 	///////// DESPEGUE /////////////
+	/*
 	movBlackHawkZ = 0.0f;
 	movBlackHawkY = 0.0f;
 	movBlackHawkX = 0.0f;
 	bandera = false;
 	paso = 1;
-	girarBlackHawk = 0.0f;
+	girarBlackHawk = 0.0f;*/
 
+	movimiento = Movimiento();
+	movimiento.time();
 
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
-
+		//Se Ejecuta una unica vez por cada ciclo
+		movimiento.time();
+		deltaTime = movimiento.getDeltaTime();
+/*
 		GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime;
 		//deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-		//////////
-		if (bandera) {
-			giroHelice += 15.0f * deltaTime;
-			
+		//////////*/
 
-			if (giroHelice == 200.0f || movBlackHawkY < 4.5f) {
-				movBlackHawkY += 0.6f * deltaTime;
-			}
-			else {
 
-				switch (paso)
-				{
-				case 1:
-					if (movBlackHawkZ < 5 ) {
-						movBlackHawkZ += sin(0.3) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkZ >= 5 && girarBlackHawk < 90) {
-						girarBlackHawk += 1.0 ;
-					}
-					else
-						paso += 1;
-					break;
+		/*Animaciï¿½n para dia y noche*/
 
-				case 2:
-					if (movBlackHawkX > -5) {
-						movBlackHawkX -= sin(0.7) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkX <= -5 && girarBlackHawk < 180) {
-						girarBlackHawk += 1.0 ;
-					}
-					else {
-						///////CAMBIA A DIA EL ESCENARIO ///////
-						paso += 1;
-						skybox = Skybox(skyboxFacesA);
-						
-					}
-						
-					break;
-				case 3:
-					if (movBlackHawkZ > -5) {
-						movBlackHawkZ -= sin(0.4) * 2.5* deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkZ <= 5 && girarBlackHawk < 270) {
-						girarBlackHawk += 1.0;
-					}
-					else
-						paso += 1;
-					break;
-				case 4:
-					if (movBlackHawkX < 5) {
-						movBlackHawkX += sin(0.3) * 2.5 * deltaTime;
-						movBlackHawkY += sin(giroHelice) * deltaTime;
-					}
-					else if (movBlackHawkX >= 5 && girarBlackHawk < 360) {
-						girarBlackHawk += 1.0 ;
-					}
-					else
-						paso += 1;
-					break;
-				default:
-					/////SE INICIALIZAN VALORES //// VUELVE A NOCHE /////
-					paso = 1;
-					girarBlackHawk = 0;
-					skybox = Skybox(skyboxFacesB);	
-				}	
-			}
-		}
-		
+		skybox = movimiento.horaDia() >= 6 && movimiento.horaDia() < 18 ?
+			skyboxA : skyboxB;
 
 
 		//Recibir eventos del usuario
@@ -550,8 +522,18 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-
 		glm::mat4 model(1.0);
+
+		/*Piso provisinal para probar iluminaciones*/
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		brickTexture.UseTexture();
+		meshList[0]->RenderMesh();
+
+
+
 		/*Helicoptero por keyframes*/
 		model = glm::mat4(1.0);
 		posblackhawk = animacion.movAvion();
@@ -562,7 +544,7 @@ int main()
 		model = glm::rotate(model, animacion.rGiroAvion() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Blackhawk_M.RenderModel(); 
+		Blackhawk_M.RenderModel();
 		spotLights[3].SetPos(posblackhawk);
 
 		////////////BATMAN LEGO DIBUJO//////////////////
@@ -614,7 +596,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanBrazoD_M.RenderModel();
 
-		////MuñecaD
+		////Muï¿½ecaD
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.15f, 0.0f, 0.0f));
 
@@ -637,7 +619,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanBrazoI_M.RenderModel();
 
-		////MuñecaI
+		////Muï¿½ecaI
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.15f, 0.0f, 0.0f));
 
@@ -682,7 +664,7 @@ int main()
 		modelaux = model;
 		glm::mat4 posicionPieD(1.0);
 		posicionPieD = model;
-	
+
 		////PieD
 		posBatman = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posBatman);
@@ -709,7 +691,7 @@ int main()
 		BatmanPieI_M.RenderModel();
 		model = modelaux = posicionTorax;
 
-	
+
 		////Capa
 		posBatman = glm::vec3(0.0, 0.0, 0.0);
 		model = glm::translate(model, posBatman);
@@ -764,7 +746,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Escalon02_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Escalon03
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -772,7 +754,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Escalon03_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Escalon04
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -836,7 +818,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste03_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste04
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -844,7 +826,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste04_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste05
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -852,7 +834,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste05_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste06
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -860,7 +842,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste06_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste07
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -868,7 +850,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste07_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste08
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -876,7 +858,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste08_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste09
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -884,7 +866,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste09_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste10
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -892,7 +874,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Poste10_M.RenderModel();
 		model = modelauxQ = posicionBase;
-		
+
 		////Poste11
 		posQuiosco = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posQuiosco);
@@ -1003,30 +985,32 @@ int main()
 
 				//////HELICES ///////////////////////////
 		model = glm::mat4(1.0);
-		posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		//posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		posblackhawk = movimiento.movBlackHawk(0.0, bandera) + glm::vec3(0.0, 0.2, 0.0);
 		model = glm::translate(model, posblackhawk);
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, giroHelice * 100 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, movimiento.getGiroHelice() * 100, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Helices_M.RenderModel();
 
 		/////HELICOPTERO 02 ////////////////////
 		model = glm::mat4(1.0);
-		posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		//posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
+		posblackhawk = movimiento.movBlackHawk(0.0, bandera);
 		model = glm::translate(model, posblackhawk);
 		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		//model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, girarBlackHawk * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Nave_M.RenderModel();
-		
+
 		/* Se deja para recordar lo de traspaencia
-		//Agave ¿qué sucede si lo renderizan antes del coche y de la pista?
+		//Agave ï¿½quï¿½ sucede si lo renderizan antes del coche y de la pista?
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -1.7f, -2.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));

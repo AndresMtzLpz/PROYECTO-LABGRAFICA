@@ -9,6 +9,8 @@ public:
 	Light();
 	Light(GLfloat red, GLfloat green, GLfloat blue, 
 			GLfloat aIntensity, GLfloat dIntensity);
+	
+	void SetColor(GLfloat red, GLfloat green, GLfloat blue);
 
 	~Light();
 

@@ -8,13 +8,16 @@ class Movimiento
 {
 public:
 	Movimiento();
-	glm::vec3 movBlackHawk(float movOffset);
+	glm::vec3 movBlackHawk(float movOffset, bool despegue_BH);
 	glm::vec3 movKit(float movOffset);
 	glm::vec3 movBall(float movOffset);
 	float giroBlackHawk();
+	float getGiroHelice();
 	float giroKitY();
 	float giroKitZ();
+	int horaDia();
 	GLfloat  time();
+	float getDeltaTime();
 	~Movimiento();
 
 private:
@@ -31,6 +34,7 @@ private:
 	float dirY_BH;
 	float giroY_BH;
 	int	  ruta_BH;
+	float giroHelice;
 
 	float posX_KK;
 	float posY_KK;
@@ -45,4 +49,8 @@ private:
 	int	  ruta_BB;
 	float maxY_BB;
 	float t_BB;
+
+	float contHora;
+
+
 };

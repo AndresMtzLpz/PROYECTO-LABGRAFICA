@@ -15,6 +15,7 @@ Movimiento::Movimiento()
 	giroY_BH = 0.0f;
 	ruta_BH = 0;
 	dirY_BH = 1;
+	giroHelice = 0.0;
 
 	posX_KK = -10.0f;
 	posY_KK = 0.0f;
@@ -29,62 +30,81 @@ Movimiento::Movimiento()
 	maxY_BB = 55.0f;
 	ruta_BB = -1;
 	t_BB = 0;
+
+	contHora = 0.0f;
 }
 
-glm::vec3 Movimiento::movBlackHawk(float movOffset)
+glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 {
-	float x;
 
-	switch (ruta_BH)
-	{
-	case 0:
-		ruta_BH = (posX_BH > 4.0f) ? 1 : 0;
-		posX_BH += movOffset * deltaTime;
-		giroY_BH = 0;
-		break;
+	if (despegue_BH) {
+		giroHelice += 15.0f * deltaTime;
 
-	case 1:
-		ruta_BH = (posX_BH >= 9.0f) ? 2 : 1;
-		x = posX_BH - 4.0;
-		posZ_BH = sqrt(25 - x * x);
-		posX_BH += movOffset * deltaTime / 5;
-		giroY_BH = 90 * giro(4.0, 9.0, posX_BH);
-		break;
 
-	case 2:
-		ruta_BH = (posX_BH <= 4.0f) ? 3 : 2;
-		posX_BH -= movOffset * deltaTime / 5;
-		x = posX_BH - 4.0;
-		posZ_BH = -sqrt(25 - x * x);
-		giroY_BH = 90 + 90 * giro(9.0, 4.0, posX_BH);
-		break;
+		if (giroHelice == 200.0f || posY_BH < 4.5f) {
+			posY_BH += 0.6f * deltaTime;
+		}
+		else {
 
-	case 3:
-		ruta_BH = (posX_BH < -4.0f) ? 4 : 3;
-		posX_BH -= movOffset * deltaTime;
-		giroY_BH = 180;
-		break;
+			switch (ruta_BH)
+			{
+			case 1:
+				if (posZ_BH < 5) {
+					posZ_BH += sin(0.3) * 2.5 * deltaTime;
+					posY_BH += sin(giroHelice) * deltaTime;
+				}
+				else if (posZ_BH >= 5 && giroY_BH < 90) {
+					giroY_BH += 1.0;
+				}
+				else
+					ruta_BH += 1;
+				break;
 
-	case 4:
-		ruta_BH = (posX_BH < -9.0f) ? 5 : 4;
-		x = posX_BH + 4.0;
-		posZ_BH = -sqrt(25 - x * x);
-		posX_BH -= movOffset * deltaTime /5;
-		giroY_BH = 180 + 90 * giro(4.0, 9.0, -posX_BH);
-		break;
-	
-	case 5:
-		ruta_BH = (posX_BH > -4) ? 0 : 5;
-		posX_BH += movOffset * deltaTime/5;
-		x = posX_BH + 4.0;
-		posZ_BH = sqrt(25 - x * x);
-		giroY_BH = 270 + 90 * giro(9.0, 4.0, -posX_BH);
-		break;
+			case 2:
+				if (posX_BH > -5) {
+					posX_BH -= sin(0.7) * 2.5 * deltaTime;
+					posY_BH += sin(giroHelice) * deltaTime;
+				}
+				else if (posX_BH <= -5 && giroY_BH < 180) {
+					giroY_BH += 1.0;
+				}
+				else {
+					ruta_BH += 1;
 
+				}
+
+				break;
+			case 3:
+				if (posZ_BH > -5) {
+					posZ_BH -= sin(0.4) * 2.5 * deltaTime;
+					posY_BH += sin(giroHelice) * deltaTime;
+				}
+				else if (posZ_BH <= 5 && giroY_BH < 270) {
+					giroY_BH += 1.0;
+				}
+				else
+					ruta_BH += 1;
+				break;
+			case 4:
+				if (posX_BH < 5) {
+					posX_BH += sin(0.3) * 2.5 * deltaTime;
+					posY_BH += sin(giroHelice) * deltaTime;
+				}
+				else if (posX_BH >= 5 && giroY_BH < 360) {
+					giroY_BH += 1.0;
+				}
+				else
+					ruta_BH += 1;
+				break;
+			default:
+				ruta_BH = 1;
+				giroY_BH = 0;
+
+			}
+		}
 	}
-	dirY_BH += deltaTime;
-	posY_BH = 2*sin(dirY_BH) + 0.5;
-	return glm::vec3(posX_BH,posY_BH,posZ_BH);
+
+	return glm::vec3(posX_BH - 1.85,posY_BH,posZ_BH*2+2);
 }
 
 glm::vec3 Movimiento::movKit(float movOffset)
@@ -182,6 +202,10 @@ float Movimiento::giroBlackHawk()
 	return giroY_BH * toRadians;
 }
 
+float Movimiento::getGiroHelice() {
+	return giroHelice * toRadians;
+}
+
 float Movimiento::giroKitY()
 {
 	return giroY_KK * toRadians;
@@ -198,6 +222,12 @@ float Movimiento::giro(float p_ini, float p_final, float p_actual)
 	return (p_actual-p_ini)/mag_giro;
 }
 
+int Movimiento::horaDia() {
+	contHora += deltaTime * 0.55;
+	//printf("%d \n\n", (int)contHora % 24);
+	return (int)contHora % 24;
+}
+
 
 GLfloat Movimiento::time()
 {
@@ -205,6 +235,10 @@ GLfloat Movimiento::time()
 	deltaTime = now - lastTime;
 	lastTime = now;
 	return GLfloat();
+}
+
+float Movimiento::getDeltaTime() {
+	return deltaTime;
 }
 
 Movimiento::~Movimiento()
