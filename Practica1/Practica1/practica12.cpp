@@ -34,6 +34,7 @@ Animaci�n por keyframes
 #include"Model.h"
 #include "Skybox.h"
 #include"SpotLight.h"
+#include "Luminaria.h"
 
 #include "Movimiento.h"
 #include "AnimacionKF.h"
@@ -79,7 +80,8 @@ Material Material_brillante;
 Material Material_opaco;
 
 //luz direccional
-DirectionalLight mainLight;
+DirectionalLight sunLight;
+DirectionalLight moonLight;
 
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
@@ -293,71 +295,71 @@ int main()
 	////////////////
 
 	Base01_M = Model();
-	Base01_M.LoadModel("Models//Quiosco/Base01.obj");
+	Base01_M.LoadModel("Models/Quiosco/Base01.obj");
 	Base02_M = Model();
-	Base02_M.LoadModel("Models//Quiosco/Base02.obj");
+	Base02_M.LoadModel("Models/Quiosco/Base02.obj");
 	Escalon01_M = Model();
-	Escalon01_M.LoadModel("Models//Quiosco/Escalon01.obj");
+	Escalon01_M.LoadModel("Models/Quiosco/Escalon01.obj");
 	Escalon02_M = Model();
-	Escalon02_M.LoadModel("Models//Quiosco/Escalon02.obj");
+	Escalon02_M.LoadModel("Models/Quiosco/Escalon02.obj");
 	Escalon03_M = Model();
-	Escalon03_M.LoadModel("Models//Quiosco/Escalon03.obj");
+	Escalon03_M.LoadModel("Models/Quiosco/Escalon03.obj");
 	Escalon04_M = Model();
-	Escalon04_M.LoadModel("Models//Quiosco/Escalon04.obj");
+	Escalon04_M.LoadModel("Models/Quiosco/Escalon04.obj");
 	Piso_M = Model();
-	Piso_M.LoadModel("Models//Quiosco/Piso.obj");
+	Piso_M.LoadModel("Models/Quiosco/Piso.obj");
 	Barda01_M = Model();
-	Barda01_M.LoadModel("Models//Quiosco/Barda01.obj");
+	Barda01_M.LoadModel("Models/Quiosco/Barda01.obj");
 	Barda02_M = Model();
-	Barda02_M.LoadModel("Models//Quiosco/Barda02.obj");
+	Barda02_M.LoadModel("Models/Quiosco/Barda02.obj");
 	Barda03_M = Model();
-	Barda03_M.LoadModel("Models//Quiosco/Barda03.obj");
+	Barda03_M.LoadModel("Models/Quiosco/Barda03.obj");
 	Poste01_M = Model();
-	Poste01_M.LoadModel("Models//Quiosco/Poste01.obj");
+	Poste01_M.LoadModel("Models/Quiosco/Poste01.obj");
 	Poste02_M = Model();
-	Poste02_M.LoadModel("Models//Quiosco/Poste02.obj");
+	Poste02_M.LoadModel("Models/Quiosco/Poste02.obj");
 	Poste03_M = Model();
-	Poste03_M.LoadModel("Models//Quiosco/Poste03.obj");
+	Poste03_M.LoadModel("Models/Quiosco/Poste03.obj");
 	Poste04_M = Model();
-	Poste04_M.LoadModel("Models//Quiosco/Poste04.obj");
+	Poste04_M.LoadModel("Models/Quiosco/Poste04.obj");
 	Poste05_M = Model();
-	Poste05_M.LoadModel("Models//Quiosco/Poste05.obj");
+	Poste05_M.LoadModel("Models/Quiosco/Poste05.obj");
 	Poste06_M = Model();
-	Poste06_M.LoadModel("Models//Quiosco/Poste06.obj");
+	Poste06_M.LoadModel("Models/Quiosco/Poste06.obj");
 	Poste07_M = Model();
-	Poste07_M.LoadModel("Models//Quiosco/Poste07.obj");
+	Poste07_M.LoadModel("Models/Quiosco/Poste07.obj");
 	Poste08_M = Model();
-	Poste08_M.LoadModel("Models//Quiosco/Poste08.obj");
+	Poste08_M.LoadModel("Models/Quiosco/Poste08.obj");
 	Poste09_M = Model();
-	Poste09_M.LoadModel("Models//Quiosco/Poste09.obj");
+	Poste09_M.LoadModel("Models/Quiosco/Poste09.obj");
 	Poste10_M = Model();
-	Poste10_M.LoadModel("Models//Quiosco/Poste10.obj");
+	Poste10_M.LoadModel("Models/Quiosco/Poste10.obj");
 	Poste11_M = Model();
-	Poste11_M.LoadModel("Models//Quiosco/Poste11.obj");
+	Poste11_M.LoadModel("Models/Quiosco/Poste11.obj");
 	Poste12_M = Model();
-	Poste12_M.LoadModel("Models//Quiosco/Poste12.obj");
+	Poste12_M.LoadModel("Models/Quiosco/Poste12.obj");
 	Poste13_M = Model();
-	Poste13_M.LoadModel("Models//Quiosco/Poste13.obj");
+	Poste13_M.LoadModel("Models/Quiosco/Poste13.obj");
 	Poste14_M = Model();
-	Poste14_M.LoadModel("Models//Quiosco/Poste14.obj");
+	Poste14_M.LoadModel("Models/Quiosco/Poste14.obj");
 	Poste15_M = Model();
-	Poste15_M.LoadModel("Models//Quiosco/Poste15.obj");
+	Poste15_M.LoadModel("Models/Quiosco/Poste15.obj");
 	Poste16_M = Model();
-	Poste16_M.LoadModel("Models//Quiosco/Poste16.obj");
+	Poste16_M.LoadModel("Models/Quiosco/Poste16.obj");
 	Techo01_M = Model();
-	Techo01_M.LoadModel("Models//Quiosco/Techo01.obj");
+	Techo01_M.LoadModel("Models/Quiosco/Techo01.obj");
 	Techo02_M = Model();
-	Techo02_M.LoadModel("Models//Quiosco/Techo02.obj");
+	Techo02_M.LoadModel("Models/Quiosco/Techo02.obj");
 	Techo03_M = Model();
-	Techo03_M.LoadModel("Models//Quiosco/Techo03.obj");
+	Techo03_M.LoadModel("Models/Quiosco/Techo03.obj");
 	Techo04_M = Model();
-	Techo04_M.LoadModel("Models//Quiosco/Techo04.obj");
+	Techo04_M.LoadModel("Models/Quiosco/Techo04.obj");
 	Techo05_M = Model();
-	Techo05_M.LoadModel("Models//Quiosco/Techo05.obj");
+	Techo05_M.LoadModel("Models/Quiosco/Techo05.obj");
 	Techo06_M = Model();
-	Techo06_M.LoadModel("Models//Quiosco/Techo06.obj");
+	Techo06_M.LoadModel("Models/Quiosco/Techo06.obj");
 	Techo07_M = Model();
-	Techo07_M.LoadModel("Models//Quiosco/Techo07.obj");
+	Techo07_M.LoadModel("Models/Quiosco/Techo07.obj");
 
 
 
@@ -369,73 +371,78 @@ int main()
 
 
 	//luz direccional, s�lo 1 y siempre debe de existir
-	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+	sunLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 								 0.3f, 0.3f, //Intensidad luminosa
 								 0.0f, 0.0f, -1.0f);
 
+	moonLight = DirectionalLight(0.05f, 0.1f, 0.60f,
+								0.3f, 0.3f, //Intensidad luminosa
+								0.0f, 0.0f, -1.0f);
 
 
-	//contador de luces puntuales
+
+/*	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
 	//Declaraci�n de primer luz puntual
-	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
+	pointLights[0] = PointLight(1.0f, 0.0f, 1.0f,
 		0.0f, 1.0f, //Intensidades
 		2.0f, 1.5f, 1.5f, //Posici�n de la luz
 		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaci�n de segundo grado
 						//que no den valores complejos
 	pointLightCount++;
 
+	pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, //Intensidades
+		2.0f, 1.5f, 1.5f, //Posici�n de la luz
+		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaci�n de segundo grado
+						//que no den valores complejos
+	pointLightCount++;*/
 
-	/*Declaraci�n de luces tipo spot*/
+
+	/*Declaracion de luces tipo spot*/
 	unsigned int spotLightCount = 0;
+	SpotLight luz_fija;
+
 	//linterna
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+	/*spotLights[0] = SpotLight(0.0f, 0.0f, 0.0f,
 		0.0f, 2.0f,
 		0.0f, 0.0f, 0.0f, //Posici�n de la luz
 		0.0f, -1.0f, 0.0f, //Direcci�n de la luz
 		1.0f, 0.0f, 0.0f,//Atenuaci�n
 		20.0f);
-	spotLightCount++;
+	spotLightCount++;*/
+
 
 	//luz fija
-	spotLights[1] = SpotLight(0.0f, 0.0f, 1.0f,
-		0.0f, 2.0f,
-		10.0f, 0.0f, 0.0f,
+	luz_fija = SpotLight(0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f,
+		0.0f, 5.0f, 0.0f,
 		0.0f, -5.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
-		10.0f);
-	spotLightCount++;
-	//luz de faro
-	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f,
-		0.0f, -1.5f, 0.0f,
-		-4.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		10.0f);
-	spotLightCount++;
-
+		20.0f);
 
 	glm::vec3 posblackhawk = glm::vec3(2.0f, 0.0f, 0.0f);
 
 	///////// ESCENRAIO DIA Y NOCHE /////////////
 	////Dia
 	std::vector<std::string> skyboxFacesA;
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_rt.tga");
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_lf.tga");
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_dn.tga");
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_up.tga");
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_bk.tga");
-	skyboxFacesA.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/posx.jpg");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/negx.jpg");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/negy.jpg");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/posy.jpg");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/posz.jpg");
+	skyboxFacesA.push_back("Textures/Skybox/IceRiver/negz.jpg");
 	skyboxA = Skybox(skyboxFacesA);
 
 	////Noche
 	std::vector<std::string> skyboxFacesB;
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_rt.tga");
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_lf.tga");
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_dn.tga");
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_up.tga");
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_bk.tga");
-	skyboxFacesB.push_back("Textures/Skybox/cupertin-lake-night_ft.tga");
+	skyboxFacesB.push_back("Textures/Skybox/posx.jpg");
+	skyboxFacesB.push_back("Textures/Skybox/negx.jpg");
+	skyboxFacesB.push_back("Textures/Skybox/negy.jpg");
+	skyboxFacesB.push_back("Textures/Skybox/posy.jpg");
+	skyboxFacesB.push_back("Textures/Skybox/posz.jpg");
+	skyboxFacesB.push_back("Textures/Skybox/negz.jpg");
+
 	skyboxB = Skybox(skyboxFacesB);
 
 
@@ -448,17 +455,10 @@ int main()
 
 
 
-	///////// DESPEGUE /////////////
-	/*
-	movBlackHawkZ = 0.0f;
-	movBlackHawkY = 0.0f;
-	movBlackHawkX = 0.0f;
-	bandera = false;
-	paso = 1;
-	girarBlackHawk = 0.0f;*/
-
 	movimiento = Movimiento();
 	movimiento.time();
+	Luminaria lum;
+	lum = Luminaria(pointLights, spotLights);
 
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -476,7 +476,7 @@ int main()
 
 		/*Animaci�n para dia y noche*/
 
-		skybox = movimiento.horaDia() >= 6 && movimiento.horaDia() < 18 ?
+		skybox = movimiento.horaDia() >= 600 && movimiento.horaDia() < 1800 ?
 			skyboxA : skyboxB;
 
 
@@ -513,11 +513,18 @@ int main()
 
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
-		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetPointLights(pointLights, pointLightCount);
-		shaderList[0].SetSpotLights(spotLights, spotLightCount);
+
+		/* Luces */
+
+		lum.setLuminaria(movimiento.horaDia());
+		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+		shaderList[0].SetDirectionalLight(lum.getDirectional());
+		shaderList[0].SetPointLights(pointLights, lum.getPointCount());
+		shaderList[0].SetSpotLights(spotLights, lum.getSpotCount());
+
+
+
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
@@ -1003,11 +1010,12 @@ int main()
 		model = glm::translate(model, posblackhawk);
 		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		//model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Nave_M.RenderModel();
+		Helicoptero_M.RenderModel();
+		//Nave_M.RenderModel();
 
 		/* Se deja para recordar lo de traspaencia
 		//Agave �qu� sucede si lo renderizan antes del coche y de la pista?

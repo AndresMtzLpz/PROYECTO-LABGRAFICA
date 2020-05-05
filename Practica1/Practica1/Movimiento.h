@@ -15,7 +15,7 @@ public:
 	float getGiroHelice();
 	float giroKitY();
 	float giroKitZ();
-	int horaDia();
+	float horaDia();
 	GLfloat  time();
 	float getDeltaTime();
 	~Movimiento();

@@ -222,10 +222,10 @@ float Movimiento::giro(float p_ini, float p_final, float p_actual)
 	return (p_actual-p_ini)/mag_giro;
 }
 
-int Movimiento::horaDia() {
-	contHora += deltaTime * 0.55;
+float Movimiento::horaDia() {
+	contHora += deltaTime * 40;
 	//printf("%d \n\n", (int)contHora % 24);
-	return (int)contHora % 24;
+	return (int)contHora % 2400;
 }
 
 

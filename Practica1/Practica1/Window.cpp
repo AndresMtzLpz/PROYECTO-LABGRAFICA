@@ -200,6 +200,7 @@ void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 
 Window::~Window()
 {
+
 	glfwDestroyWindow(mainWindow);
 	glfwTerminate();
 
