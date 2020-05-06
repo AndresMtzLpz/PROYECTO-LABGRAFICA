@@ -149,6 +149,18 @@ Model Escalon04_M;//33
 ///////MODELO NAVE ANAKIN ////////////////
 Model Nave_M;
 
+////////COSAS NUEVAS//////////////////
+Model Fuente_M;
+
+Model Arbol_M;
+Model Reja_M;
+Model Luminaria_M;
+
+Model Banca_M;
+Model Bano_M;
+Model Arbusto_M;
+Model PuertaBano_M;
+
 
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
@@ -361,13 +373,29 @@ int main()
 	Techo07_M = Model();
 	Techo07_M.LoadModel("Models/Quiosco/Techo07.obj");
 
-
-
-
-
-
+	/////NAVE/////////
 	Nave_M = Model();
 	Nave_M.LoadModel("Models/Anakin.obj");
+
+
+	///// COSAS NUEVAS////////////
+	Fuente_M = Model();
+	Fuente_M.LoadModel("Models/Nuevo/Fuente.fbx");
+	Arbol_M = Model();
+	Arbol_M.LoadModel("Models/Nuevo/Arbol.fbx");
+	Reja_M = Model();
+	Reja_M.LoadModel("Models/Nuevo/Reja.obj");
+	Luminaria_M = Model();
+	Luminaria_M.LoadModel("Models/Nuevo/Lampara.fbx");
+	Banca_M = Model();
+	Banca_M.LoadModel("Models/Nuevo/banca.obj");
+	Bano_M = Model();
+	Bano_M.LoadModel("Models/Nuevo/bano.fbx");
+	Arbusto_M = Model();
+	Arbusto_M.LoadModel("Models/Nuevo/Arbusto.obj");
+	PuertaBano_M = Model();
+	PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
+
 
 
 	//luz direccional, s�lo 1 y siempre debe de existir
@@ -989,7 +1017,6 @@ int main()
 
 
 
-
 				//////HELICES ///////////////////////////
 		model = glm::mat4(1.0);
 		//posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
@@ -1030,6 +1057,90 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[0]->RenderMesh();
 		glDisable(GL_BLEND);*/
+
+
+
+
+		/////////////COSAS NUEVAS//////////////
+
+		/////Fuente
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-15.0f, 10.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Fuente_M.RenderModel();
+
+		/////Arbol
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-10.0f, 10.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Reja
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-5.0f, 5.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Reja_M.RenderModel();
+
+
+		/////Luminaria
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Luminaria_M.RenderModel();
+
+
+		/////Banca
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(2.0f, 5.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Banca_M.RenderModel();
+
+		/////Baño
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(8.0f, 8.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Bano_M.RenderModel();
+
+		/////Puerta Baño **** Separada para poder hacer animacion
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(8.0f, 8.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PuertaBano_M.RenderModel();
+
+
+		/////Arbusto ** Debe ir al final para menor perdida de transparencia
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(8.0f, 15.0f, 2.5f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbusto_M.RenderModel();
+
+		glDisable(GL_BLEND);
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();
