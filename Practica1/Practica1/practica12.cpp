@@ -54,7 +54,7 @@ float giroHelice;*/
 
 
 //////VARIABLES BATMAN LEGO///////
-float posXBatman = 20.0, posYBatman = -1.3f, posZBatman = 0.0;
+float posXBatman = 20.0, posYBatman = 2.0f, posZBatman = 0.0;
 float	movBatman_x = 0.0f, movBatman_y = 0.0f, movBatman_z = 0.0f;
 float giroBatman = 0;
 glm::vec3 posBatman = glm::vec3(posXBatman, posYBatman, posZBatman);
@@ -160,7 +160,8 @@ Model Banca_M;
 Model Bano_M;
 Model Arbusto_M;
 Model PuertaBano_M;
-
+Model Pasto_M;
+Model Pavimento_M;
 
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
@@ -390,12 +391,15 @@ int main()
 	Banca_M = Model();
 	Banca_M.LoadModel("Models/Nuevo/banca.obj");
 	Bano_M = Model();
-	Bano_M.LoadModel("Models/Nuevo/bano.fbx");
+	Bano_M.LoadModel("Models/Nuevo/banoT.fbx");
 	Arbusto_M = Model();
 	Arbusto_M.LoadModel("Models/Nuevo/Arbusto.obj");
 	PuertaBano_M = Model();
 	PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
-
+	Pasto_M = Model();
+	Pasto_M.LoadModel("Models/Nuevo/pasto.obj");
+	Pavimento_M = Model();
+	Pavimento_M.LoadModel("Models/Nuevo/pavimento.obj");
 
 
 	//luz direccional, s�lo 1 y siempre debe de existir
@@ -595,7 +599,7 @@ int main()
 		model = glm::translate(model, posBatman);
 		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaX()), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaY()), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
 		modelaux = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanCadera_M.RenderModel();
@@ -747,11 +751,11 @@ int main()
 		model = glm::mat4(1.0);
 		glm::mat4 modelauxQ(1.0);
 		model = glm::mat4(1.0);
-		posQuiosco = glm::vec3(0.0, -2.0, -10.0);
+		posQuiosco = glm::vec3(0.0, 0.0, 0.0);
 		model = glm::translate(model, posQuiosco);
 		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaX()), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaY()), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
 		modelauxQ = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Base01_M.RenderModel();
@@ -1065,8 +1069,8 @@ int main()
 
 		/////Fuente
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-15.0f, 10.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1074,8 +1078,8 @@ int main()
 
 		/////Arbol
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-10.0f, 10.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 4.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1083,7 +1087,7 @@ int main()
 
 		/////Reja
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-5.0f, 5.0f, -4.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1092,8 +1096,8 @@ int main()
 
 		/////Luminaria
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1102,8 +1106,8 @@ int main()
 
 		/////Banca
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(2.0f, 5.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -1111,9 +1115,9 @@ int main()
 
 		/////Baño
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(8.0f, 8.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Bano_M.RenderModel();
@@ -1126,14 +1130,30 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		PuertaBano_M.RenderModel();
+		PuertaBano_M.RenderModel(); 
 
+		/////Pasto
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Pasto_M.RenderModel();
+
+
+		/////Pavimento
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Pavimento_M.RenderModel();
 
 		/////Arbusto ** Debe ir al final para menor perdida de transparencia
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(8.0f, 15.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
