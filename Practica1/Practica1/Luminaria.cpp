@@ -14,15 +14,6 @@ Luminaria::Luminaria(PointLight * pointlight, SpotLight * spotlight)
 	hora = 0;
 	pointLight = pointlight;
 	spotLight = spotlight;
-	allPointLights = (PointLight*) malloc(sizeof(PointLight)*3);
-	allSpotLights = (SpotLight*)malloc(sizeof(PointLight) *1);
-
-	*allSpotLights = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f, //Posicion de la luz
-		0.0f, -1.0f, 0.0f, //Direccion de la luz
-		1.0f, 0.0f, 0.0f,//Atenuacion
-		20.0f);
 
 	/* Definicion luces*/
 	sunLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -33,26 +24,8 @@ Luminaria::Luminaria(PointLight * pointlight, SpotLight * spotlight)
 		0.3f, 0.5f, //Intensidad luminosa
 		0.0f, 0.0f, -1.0f);
 
-
-
-
-
-
-	/*Declaracion de todas las luces tipo PointLigth*/
-	*allPointLights = PointLight(1.0f, 0.0f, 1.0f,
-							0.0f, 8.0f, //Intensidades
-							1.0f, 3.0f, 0.0f, //Posicion de la luz
-							0.3f, 0.2f, 0.1f);	//coeficientes de una ecuacion de segundo grado
-											//que no den valores complejos
-	*(allPointLights +1) = PointLight(0.0f, 0.0f, 1.0f,
-		0.0f, 8.0f, 
-		-1.0f, 4.0f, 0.0f, 
-		0.3f, 0.2f, 0.1f);
-
-	*(allPointLights + 2) = PointLight(1.0f, 1.0f, 1.0f,
-		0.0f, 10.0f,
-		0.0f, 3.5f, 1.0f,
-		0.3f, 0.2f, 0.1f);
+	creaPointLights();
+	creaSpotLights();
 
 }
 
@@ -79,7 +52,6 @@ void Luminaria::setLuminaria(int horaDia)
 {
 	hora = horaDia;
 	minuto = horaDia % 50 == 0 ? (minuto + 1) % 2: minuto ; //Cada 50 pasos (cada media hora) 1H =50 
-	
 
 
 	if ((hora >= 600 && hora < 1800)) {
@@ -87,17 +59,72 @@ void Luminaria::setLuminaria(int horaDia)
 		pointLightCount = 0;
 	}
 	else {
-		*spotLight = *allSpotLights;
-		for (int i = 0; i < 2; i++)
+		switch (minuto)
 		{
-			*(pointLight + i) = *(allPointLights + minuto+i);
+		case 0:
+			*(pointLight + 1) = PLFaro_1;
+			*(pointLight + 2) = PLFaro_2;
+			*(pointLight + 0) = PLFaro_3;
+			pointLightCount = 3;
+			break;
+		case 1:
+			*(pointLight + 1) = PLFaro_2;
+			*(pointLight + 2) = PLFaro_3;
+			*(pointLight + 0) = PLFaro_4;
+			pointLightCount = 3;
+			break;
+		default:
+			break;
 		}
+		/*La primera luz simpre debe de ser la linterna*/
+		*spotLight = SPLinterna;
 		spotLightCount = 1;
-		pointLightCount = 2;
 	}
 }
 
 Luminaria::~Luminaria()
 {
 	//free(allPointLights);
+}
+
+void Luminaria::creaPointLights()
+{
+	/*Declaracion de todas las luces tipo PointLigth*/
+	PLFaro_5 = PointLight(1.0f, 0.0f, 0.0f,
+		0.0f, 8.0f, //Intensidades
+		1.0f, 3.0f, 0.0f, //Posicion de la luz
+		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuacion de segundo grado, que no den valores complejos
+
+	PLFaro_4 = PointLight(0.0f, 0.0f, 1.0f,
+		0.0f, 8.0f,
+		-1.0f, 4.0f, 0.0f,
+		0.3f, 0.2f, 0.1f);
+	PLFaro_3 = PointLight(1.0f, 1.0f, 0.0f,
+		0.0f, 10.0f,
+		1.0f, 3.5f, 1.5f,
+		0.3f, 0.2f, 0.1f);
+	PLFaro_2 = PointLight(0.0f, 1.0f, 1.0f,
+		0.0f, 5.0f,
+		0.0f, 3.5f, 1.0f,
+		0.3f, 0.2f, 0.1f);
+	PLFaro_1 = PointLight(1.0f, 0.0f, 1.0f,
+		0.0f, 6.0f,
+		2.0f, 3.5f, 1.0f,
+		0.3f, 0.2f, 0.1f);
+}
+
+void Luminaria::creaSpotLights()
+{
+	SPPista = SpotLight(0.0f, 0.0f, 1.0f,
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f, //Posicion de la luz
+		0.0f, -1.0f, 0.0f, //Direccion de la luz
+		1.0f, 0.0f, 0.0f,//Atenuacion
+		20.0f);
+	SPLinterna = SpotLight(1.0f, 1.0f, 1.0f,
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f, //Posicion de la luz
+		0.0f, -1.0f, 0.0f, //Direccion de la luz
+		1.0f, 0.0f, 0.0f,//Atenuacion
+		20.0f);
 }

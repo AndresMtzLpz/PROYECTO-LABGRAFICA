@@ -16,14 +16,24 @@ public:
 	~Luminaria();
 
 private:
+	void creaPointLights();
+	void creaSpotLights();
 	PointLight* pointLight;
 	SpotLight* spotLight;
-	PointLight* allPointLights;
-	SpotLight* allSpotLights;
 
 	/*Delcarar todas las luces a usar*/
 	DirectionalLight sunLight;
 	DirectionalLight moonLight;
+	
+	PointLight PLFaro_1;
+	PointLight PLFaro_2;
+	PointLight PLFaro_3;
+	PointLight PLFaro_4;
+	PointLight PLFaro_5;
+
+	SpotLight SPLinterna;
+	SpotLight SPPista;
+
 	
 	int pointLightCount;
 	int spotLightCount;

@@ -38,6 +38,7 @@ Animaci�n por keyframes
 
 #include "Movimiento.h"
 #include "AnimacionKF.h"
+#include "Sonido.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 bool bandera;
@@ -406,25 +407,6 @@ int main()
 	moonLight = DirectionalLight(0.05f, 0.1f, 0.60f,
 								0.3f, 0.3f, //Intensidad luminosa
 								0.0f, 0.0f, -1.0f);
-
-
-
-/*	//contador de luces puntuales
-	unsigned int pointLightCount = 0;
-	//Declaraci�n de primer luz puntual
-	pointLights[0] = PointLight(1.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, //Intensidades
-		2.0f, 1.5f, 1.5f, //Posici�n de la luz
-		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaci�n de segundo grado
-						//que no den valores complejos
-	pointLightCount++;
-
-	pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, //Intensidades
-		2.0f, 1.5f, 1.5f, //Posici�n de la luz
-		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuaci�n de segundo grado
-						//que no den valores complejos
-	pointLightCount++;*/
 
 
 	/*Declaracion de luces tipo spot*/
