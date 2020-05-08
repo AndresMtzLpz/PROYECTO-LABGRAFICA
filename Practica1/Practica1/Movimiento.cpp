@@ -1,5 +1,6 @@
 #include "Movimiento.h"
 #include <glfw3.h>
+#define PI 3.14159265
 
 Movimiento::Movimiento()
 {
@@ -32,6 +33,11 @@ Movimiento::Movimiento()
 	t_BB = 0;
 
 	contHora = 0.0f;
+	cont = 0.0f;
+
+	posX_luzSP = 0.0f;
+	posZ_luzSP = 0.0f;
+	DirX_luzSP = 1;
 }
 
 glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
@@ -216,6 +222,31 @@ float Movimiento::giroKitZ()
 	return giroZ_KK * toRadians;
 }
 
+glm::vec3 Movimiento::getMovCir()
+{	
+	float tetha = 2 * PI * cont;
+	float x = cos(tetha);
+	float z = sin(tetha);
+	//printf("Theta %f \n",);
+	return glm::vec3(x, 1.0f,z); //X & Z pequeños para circulo pequeño, Y aumenta el tamaño, pero no inf a 1
+}
+
+glm::vec3 Movimiento::getMovLin()
+{
+	if (abs(posX_luzSP) >= 4) {
+		DirX_luzSP *= -1;
+		posX_luzSP += deltaTime * 3.0 * DirX_luzSP; //Evita rebotes
+	}
+	posX_luzSP += deltaTime * 2.0 * DirX_luzSP;
+	posZ_luzSP = posX_luzSP / 2;
+	return glm::vec3(posX_luzSP,4, posZ_luzSP);
+}
+
+glm::vec3 Movimiento::getMovLin_2()
+{
+	return glm::vec3(-posX_luzSP, 4, -posZ_luzSP);
+}
+
 float Movimiento::giro(float p_ini, float p_final, float p_actual)
 {
 	float mag_giro = p_final - p_ini;
@@ -234,7 +265,9 @@ GLfloat Movimiento::time()
 	GLfloat now = glfwGetTime();
 	deltaTime = now - lastTime;
 	lastTime = now;
+	cont += getDeltaTime() * 0.5;
 	return GLfloat();
+
 }
 
 float Movimiento::getDeltaTime() {
