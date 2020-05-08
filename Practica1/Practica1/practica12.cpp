@@ -38,10 +38,9 @@ Animaci�n por keyframes
 
 #include "Movimiento.h"
 #include "AnimacionKF.h"
-<<<<<<< HEAD
-//#include "Sonido.h"
-=======
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
+
+
+
 
 const float toRadians = 3.14159265f / 180.0f;
 bool bandera;
@@ -87,7 +86,7 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 Model Blackhawk_M;
 Model Helices_M;
 Model Helicoptero_M;
-/*
+
 ///////MODELOS DE BATMAN LEGO//////////////
 Model BatmanCabeza_M;  //1
 Model BatmanMascara_M; //2
@@ -101,7 +100,7 @@ Model BatmanBrazoI_M;  //9
 Model BatmanManoD_M;   //10
 Model BatmanManoI_M;   //11
 Model BatmanCapa_M;    //12
-*/
+
 
 ///////MODELOS QUIOSCO//////////////
 Model Base01_M;  //1
@@ -267,7 +266,7 @@ int main()
 	Helicoptero_M.LoadModel("Models/Helicoptero.fbx");
 
 	///////BATMAN LEGO /////
-	/*
+	
 	BatmanCabeza_M = Model();  //1
 	BatmanCabeza_M.LoadModel("Models/BatmanCabeza.obj");
 	BatmanMascara_M = Model(); //2
@@ -292,7 +291,7 @@ int main()
 	BatmanManoI_M.LoadModel("Models/BatmanManoI.obj");
 	BatmanCapa_M = Model();    //12
 	BatmanCapa_M.LoadModel("Models/BatmanCapa.obj");
-	*/
+	
 	////////////////
 
 	///////QUIOSCO LEGO /////
@@ -379,17 +378,12 @@ int main()
 	Luminaria_M.LoadModel("Models/Nuevo/Lampara.fbx");
 	Banca_M = Model();
 	Banca_M.LoadModel("Models/Nuevo/banca.obj");
-<<<<<<< HEAD
 	Bano_M = Model();
 	Bano_M.LoadModel("Models/Nuevo/bano.obj");
-=======
-	//Bano_M = Model();
-	//Bano_M.LoadModel("Models/Nuevo/banoT.fbx");
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
 	Arbusto_M = Model();
 	Arbusto_M.LoadModel("Models/Nuevo/Arbusto.obj");
-	//PuertaBano_M = Model();
-	//PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
+	PuertaBano_M = Model();
+	PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
 	Pasto_M = Model();
 	Pasto_M.LoadModel("Models/Nuevo/pasto.obj");
 	Pavimento_M = Model();
@@ -537,7 +531,7 @@ int main()
 		spotLights[3].SetPos(posblackhawk);*/
 
 		////////////BATMAN LEGO DIBUJO//////////////////
-		/*
+		
 		////Cadera
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 
@@ -688,7 +682,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanCapa_M.RenderModel();
 		model = modelaux = posicionTorax;
-		*/
+		
 		////////////////////////////////////////////////
 
 		
@@ -1123,7 +1117,7 @@ int main()
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		//Bano_M.RenderModel();
+		Bano_M.RenderModel();
 
 		/////Puerta Bano 01
 		model = glm::mat4(1.0);
@@ -1146,7 +1140,6 @@ int main()
 		model = glm::rotate(model, -mainWindow.getAbrirPuerta() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-<<<<<<< HEAD
 		PuertaBano_M.RenderModel();
 
 		/////Puerta Bano 03
@@ -1175,10 +1168,7 @@ int main()
 		PuertaBano_M.RenderModel();
 
 
-		
-=======
-		//PuertaBano_M.RenderModel(); 
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
+	
 
 		/////Pasto
 		model = glm::mat4(1.0);

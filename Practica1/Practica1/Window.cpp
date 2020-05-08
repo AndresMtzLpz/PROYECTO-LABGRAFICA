@@ -22,13 +22,12 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	mueveBatmanX = 0.0f;
 	giraCaderaX = 0.0f;
 	giraCaderaY = 0.0f;
-<<<<<<< HEAD
 	giroQuiosco = 0.0f;
 	giroCabeza = 0.0f;
 	abrirPuerta = 0.0f;
-=======
+
 	botonKi = false;
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
+
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -120,16 +119,16 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_Y)
 	{
-		theWindow-> muevex += 1.0;
+		theWindow->muevex += 1.0;
 	}
 	if (key == GLFW_KEY_U)
 	{
-		theWindow-> muevex -= 1.0;
+		theWindow->muevex -= 1.0;
 	}
 	////BATMAN LEGO
 	if (key == GLFW_KEY_Y)
 	{
-		theWindow-> mueveHombroD += 10.0;
+		theWindow->mueveHombroD += 10.0;
 	}
 	if (key == GLFW_KEY_R)
 	{
@@ -145,7 +144,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_T)
 	{
-		theWindow-> mueveBatmanZ += 1.0;
+		theWindow->mueveBatmanZ += 1.0;
 	}
 	if (key == GLFW_KEY_G)
 	{
@@ -161,16 +160,16 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_V)
 	{
-		theWindow-> giraCaderaX += 10.0;
+		theWindow->giraCaderaX += 10.0;
 	}
 	if (key == GLFW_KEY_B)
 	{
 		theWindow->giraCaderaY += 10.0;
 	}
-<<<<<<< HEAD
+
 	if (key == GLFW_KEY_Z)
 	{
-		theWindow-> giroCabeza += 1.0;
+		theWindow->giroCabeza += 1.0;
 	}
 	/////////PUERTA BANO/////////////
 	if (key == GLFW_KEY_0 && theWindow->abrirPuerta < 90.0)
@@ -182,31 +181,32 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		theWindow->abrirPuerta -= 10.0;
 	}
 	/////////QUIOSCO///////////////////
-	if (key == GLFW_KEY_N )
+	if (key == GLFW_KEY_N)
 	{
 		theWindow->giroQuiosco += 5.0;
-=======
 
-	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
-	{
-		theWindow->botonKi = !theWindow->botonKi;
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
 	}
+		if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+		{
+			theWindow->botonKi = !theWindow->botonKi;
+
+		}
 
 
-	if (key >= 0 && key < 1024)
-	{
-		if (action == GLFW_PRESS)
+		if (key >= 0 && key < 1024)
 		{
-			theWindow->keys[key] = true;
-			printf("se presiono la tecla %d'\n", key);
+			if (action == GLFW_PRESS)
+			{
+				theWindow->keys[key] = true;
+				printf("se presiono la tecla %d'\n", key);
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				theWindow->keys[key] = false;
+				printf("se solto la tecla %d'\n", key);
+			}
 		}
-		else if (action == GLFW_RELEASE)
-		{
-			theWindow->keys[key] = false;
-			printf("se solto la tecla %d'\n", key);
-		}
-	}
+	
 }
 
 void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)

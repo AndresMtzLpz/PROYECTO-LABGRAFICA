@@ -51,13 +51,11 @@ private:
 	GLfloat mueveHombroI;
 	GLfloat muevePieD;
 	GLfloat muevePieI;
-<<<<<<< HEAD
 	GLfloat giroCabeza;
 	GLfloat giroQuiosco;
 	GLfloat abrirPuerta;
-=======
+
 	bool botonKi;
->>>>>>> 2e582ad7b099b6a9ac481cef2ba9e1a1b1670d98
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
