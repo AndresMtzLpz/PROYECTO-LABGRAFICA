@@ -38,7 +38,7 @@ Animaci�n por keyframes
 
 #include "Movimiento.h"
 #include "AnimacionKF.h"
-#include "Sonido.h"
+//#include "Sonido.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 bool bandera;
@@ -163,6 +163,9 @@ Model Arbusto_M;
 Model PuertaBano_M;
 Model Pasto_M;
 Model Pavimento_M;
+Model PavimentoCirculo_M;
+Model PavimentoCirculito_M;
+Model Basura_M;
 
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
@@ -382,7 +385,7 @@ int main()
 
 	///// COSAS NUEVAS////////////
 	Fuente_M = Model();
-	Fuente_M.LoadModel("Models/Nuevo/Fuente.fbx");
+	Fuente_M.LoadModel("Models/Nuevo/Fuente.obj");
 	Arbol_M = Model();
 	Arbol_M.LoadModel("Models/Nuevo/Arbol.fbx");
 	Reja_M = Model();
@@ -392,7 +395,7 @@ int main()
 	Banca_M = Model();
 	Banca_M.LoadModel("Models/Nuevo/banca.obj");
 	Bano_M = Model();
-	Bano_M.LoadModel("Models/Nuevo/banoT.fbx");
+	Bano_M.LoadModel("Models/Nuevo/bano.obj");
 	Arbusto_M = Model();
 	Arbusto_M.LoadModel("Models/Nuevo/Arbusto.obj");
 	PuertaBano_M = Model();
@@ -401,7 +404,12 @@ int main()
 	Pasto_M.LoadModel("Models/Nuevo/pasto.obj");
 	Pavimento_M = Model();
 	Pavimento_M.LoadModel("Models/Nuevo/pavimento.obj");
-
+	PavimentoCirculo_M = Model();
+	PavimentoCirculo_M.LoadModel("Models/Nuevo/pavimentoCirculo.obj");
+	PavimentoCirculito_M = Model();
+	PavimentoCirculito_M.LoadModel("Models/Nuevo/pavimentoCirculito.obj");
+	Basura_M = Model();
+	Basura_M.LoadModel("Models/Nuevo/basura.obj");
 
 	//luz direccional, s�lo 1 y siempre debe de existir
 	sunLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -656,7 +664,7 @@ int main()
 		////Cuello
 		model = modelaux;
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getPieD()), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getGiroCabeza()), glm::vec3(0.0f, 1.0f, 0.0f));
 		glm::mat4 posicionCuello(1.0);
 		posicionCuello = model;
 
@@ -735,8 +743,7 @@ int main()
 		model = glm::mat4(1.0);
 		posQuiosco = glm::vec3(0.0, 0.0, 0.0);
 		model = glm::translate(model, posQuiosco);
-		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaX()), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(mainWindow.getGiroCaderaY()), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(mainWindow.getGiroQuiosco()), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
 		modelauxQ = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1051,16 +1058,61 @@ int main()
 
 		/////Fuente
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Fuente_M.RenderModel();
 
-		/////Arbol
+		/////Arbol 01
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 4.5f, 0.0f));
+		model = glm::translate(model, glm::vec3(30.0f, -1.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Arbol 02
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(40.0f, -1.0f, -50.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Arbol 03
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(50.0f, -1.0f, -20.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Arbol 04
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-30.0f, -1.0f, 30.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Arbol 05
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-40.0f, -1.0f, 50.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Arbol_M.RenderModel();
+
+		/////Arbol 06
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-50.0f, -1.0f, 20.0f));
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1088,31 +1140,81 @@ int main()
 
 		/////Banca
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.9f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Banca_M.RenderModel();
 
-		/////Baño
+		/////Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Basura_M.RenderModel();
+
+		/////Bano
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Bano_M.RenderModel();
 
-		/////Puerta Baño **** Separada para poder hacer animacion
+		/////Puerta Bano 01
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(8.0f, 8.0f, 2.5f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::translate(model, glm::vec3(65.0f, 2.2f, -43.7f));
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		////////*************** Para girar la puerta ¨***************************
+		model = glm::rotate(model, -mainWindow.getAbrirPuerta() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		PuertaBano_M.RenderModel(); 
+		PuertaBano_M.RenderModel();
+
+
+		/////Puerta Bano 02
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(65.0f, 2.2f, -38.8f));
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		////////*************** Para girar la puerta ¨***************************
+		model = glm::rotate(model, -mainWindow.getAbrirPuerta() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PuertaBano_M.RenderModel();
+
+		/////Puerta Bano 03
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-64.67f, 2.2f, 48.4f));
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		////////*************** Para girar la puerta ¨***************************
+		model = glm::rotate(model, -mainWindow.getAbrirPuerta() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PuertaBano_M.RenderModel();
+
+
+		/////Puerta Bano 04
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-64.67f, 2.2f, 43.5f));
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		////////*************** Para girar la puerta ¨***************************
+		model = glm::rotate(model, -mainWindow.getAbrirPuerta() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PuertaBano_M.RenderModel();
+
+
+		
 
 		/////Pasto
 		model = glm::mat4(1.0);
@@ -1130,6 +1232,22 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Pavimento_M.RenderModel();
+
+		/////Pavimento Circulo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, -0.45f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PavimentoCirculo_M.RenderModel();
+
+		/////Pavimento Circulito
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, -0.45f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		PavimentoCirculito_M.RenderModel();
 
 		/////Arbusto ** Debe ir al final para menor perdida de transparencia
 		model = glm::mat4(1.0);

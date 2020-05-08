@@ -22,6 +22,9 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	mueveBatmanX = 0.0f;
 	giraCaderaX = 0.0f;
 	giraCaderaY = 0.0f;
+	giroQuiosco = 0.0f;
+	giroCabeza = 0.0f;
+	abrirPuerta = 0.0f;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -160,8 +163,24 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->giraCaderaY += 10.0;
 	}
-
-
+	if (key == GLFW_KEY_Z)
+	{
+		theWindow-> giroCabeza += 1.0;
+	}
+	/////////PUERTA BANO/////////////
+	if (key == GLFW_KEY_0 && theWindow->abrirPuerta < 90.0)
+	{
+		theWindow->abrirPuerta += 10.0;
+	}
+	if (key == GLFW_KEY_9 && theWindow->abrirPuerta > 0.0)
+	{
+		theWindow->abrirPuerta -= 10.0;
+	}
+	/////////QUIOSCO///////////////////
+	if (key == GLFW_KEY_N )
+	{
+		theWindow->giroQuiosco += 5.0;
+	}
 
 
 	if (key >= 0 && key < 1024)

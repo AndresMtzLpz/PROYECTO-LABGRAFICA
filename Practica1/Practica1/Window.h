@@ -21,6 +21,9 @@ public:
 	GLfloat getMovBatmanX() { return mueveBatmanX; }
 	GLfloat getGiroCaderaX() { return giraCaderaX; }
 	GLfloat getGiroCaderaY() { return giraCaderaY; }
+	GLfloat getGiroQuiosco() { return giroQuiosco; }
+	GLfloat getGiroCabeza() { return giroCabeza; }
+	GLfloat getAbrirPuerta() { return abrirPuerta; }
 	GLfloat getmuevex() { return muevex; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
@@ -47,6 +50,9 @@ private:
 	GLfloat mueveHombroI;
 	GLfloat muevePieD;
 	GLfloat muevePieI;
+	GLfloat giroCabeza;
+	GLfloat giroQuiosco;
+	GLfloat abrirPuerta;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
