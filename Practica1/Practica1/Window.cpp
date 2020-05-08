@@ -22,6 +22,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	mueveBatmanX = 0.0f;
 	giraCaderaX = 0.0f;
 	giraCaderaY = 0.0f;
+	botonKi = false;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -161,7 +162,10 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		theWindow->giraCaderaY += 10.0;
 	}
 
-
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		theWindow->botonKi = !theWindow->botonKi;
+	}
 
 
 	if (key >= 0 && key < 1024)

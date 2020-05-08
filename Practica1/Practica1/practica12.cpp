@@ -38,21 +38,9 @@ Animaci�n por keyframes
 
 #include "Movimiento.h"
 #include "AnimacionKF.h"
-#include "Sonido.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 bool bandera;
-/*Variables para movimiento*/
-/*float movBlackHawkX;
-float movBlackHawkY;
-float movBlackHawkZ;
-
-
-bool escenario = false;
-int paso;
-float girarBlackHawk;
-float giroHelice;*/
-
 
 //////VARIABLES BATMAN LEGO///////
 float posXBatman = 20.0, posYBatman = 2.0f, posZBatman = 0.0;
@@ -95,7 +83,7 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 Model Blackhawk_M;
 Model Helices_M;
 Model Helicoptero_M;
-
+/*
 ///////MODELOS DE BATMAN LEGO//////////////
 Model BatmanCabeza_M;  //1
 Model BatmanMascara_M; //2
@@ -109,7 +97,7 @@ Model BatmanBrazoI_M;  //9
 Model BatmanManoD_M;   //10
 Model BatmanManoI_M;   //11
 Model BatmanCapa_M;    //12
-
+*/
 
 ///////MODELOS QUIOSCO//////////////
 Model Base01_M;  //1
@@ -145,10 +133,6 @@ Model Escalon01_M;//30
 Model Escalon02_M;//31
 Model Escalon03_M;//32
 Model Escalon04_M;//33
-
-
-///////MODELO NAVE ANAKIN ////////////////
-Model Nave_M;
 
 ////////COSAS NUEVAS//////////////////
 Model Fuente_M;
@@ -251,11 +235,10 @@ int main()
 	mainWindow.Initialise();
 
 	CreateShaders();
-	CreaPiso();
+	//CreaPiso();
 
 	/*Inicializaci�n para los objetos de animaci�n*/
 	animacion = AnimacionKF();
-
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 5.0f, 0.5f);
 
 	/*Carga de texturas*/
@@ -266,7 +249,7 @@ int main()
 
 	/*Materiales*/
 	Material_brillante = Material(4.0f, 256);
-	Material_opaco = Material(0.3f, 4);
+	Material_opaco = Material(0.1f, 2);
 
 	/*Craga de modelos*/
 	Blackhawk_M = Model();
@@ -277,6 +260,7 @@ int main()
 	Helicoptero_M.LoadModel("Models/Helicoptero.fbx");
 
 	///////BATMAN LEGO /////
+	/*
 	BatmanCabeza_M = Model();  //1
 	BatmanCabeza_M.LoadModel("Models/BatmanCabeza.obj");
 	BatmanMascara_M = Model(); //2
@@ -301,7 +285,7 @@ int main()
 	BatmanManoI_M.LoadModel("Models/BatmanManoI.obj");
 	BatmanCapa_M = Model();    //12
 	BatmanCapa_M.LoadModel("Models/BatmanCapa.obj");
-
+	*/
 	////////////////
 
 	///////QUIOSCO LEGO /////
@@ -375,9 +359,6 @@ int main()
 	Techo07_M = Model();
 	Techo07_M.LoadModel("Models/Quiosco/Techo07.obj");
 
-	/////NAVE/////////
-	Nave_M = Model();
-	Nave_M.LoadModel("Models/Anakin.obj");
 
 
 	///// COSAS NUEVAS////////////
@@ -391,12 +372,12 @@ int main()
 	Luminaria_M.LoadModel("Models/Nuevo/Lampara.fbx");
 	Banca_M = Model();
 	Banca_M.LoadModel("Models/Nuevo/banca.obj");
-	Bano_M = Model();
-	Bano_M.LoadModel("Models/Nuevo/banoT.fbx");
+	//Bano_M = Model();
+	//Bano_M.LoadModel("Models/Nuevo/banoT.fbx");
 	Arbusto_M = Model();
 	Arbusto_M.LoadModel("Models/Nuevo/Arbusto.obj");
-	PuertaBano_M = Model();
-	PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
+	//PuertaBano_M = Model();
+	//PuertaBano_M.LoadModel("Models/Nuevo/PuertaBano.fbx");
 	Pasto_M = Model();
 	Pasto_M.LoadModel("Models/Nuevo/pasto.obj");
 	Pavimento_M = Model();
@@ -412,28 +393,6 @@ int main()
 								0.3f, 0.3f, //Intensidad luminosa
 								0.0f, 0.0f, -1.0f);
 
-
-	/*Declaracion de luces tipo spot*/
-	unsigned int spotLightCount = 0;
-	SpotLight luz_fija;
-
-	//linterna
-	/*spotLights[0] = SpotLight(0.0f, 0.0f, 0.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f, //Posici�n de la luz
-		0.0f, -1.0f, 0.0f, //Direcci�n de la luz
-		1.0f, 0.0f, 0.0f,//Atenuaci�n
-		20.0f);
-	spotLightCount++;*/
-
-
-	//luz fija
-	luz_fija = SpotLight(0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f,
-		0.0f, 5.0f, 0.0f,
-		0.0f, -5.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		20.0f);
 
 	glm::vec3 posblackhawk = glm::vec3(2.0f, 0.0f, 0.0f);
 
@@ -456,7 +415,6 @@ int main()
 	skyboxFacesB.push_back("Textures/Skybox/posy.jpg");
 	skyboxFacesB.push_back("Textures/Skybox/posz.jpg");
 	skyboxFacesB.push_back("Textures/Skybox/negz.jpg");
-
 	skyboxB = Skybox(skyboxFacesB);
 
 
@@ -480,16 +438,9 @@ int main()
 		//Se Ejecuta una unica vez por cada ciclo
 		movimiento.time();
 		deltaTime = movimiento.getDeltaTime();
-/*
-		GLfloat now = glfwGetTime();
-		deltaTime = now - lastTime;
-		//deltaTime += (now - lastTime) / limitFPS;
-		lastTime = now;
-		//////////*/
 
 
 		/*Animaci�n para dia y noche*/
-
 		skybox = movimiento.horaDia() >= 600 && movimiento.horaDia() < 1800 ?
 			skyboxA : skyboxB;
 
@@ -500,17 +451,10 @@ int main()
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 
-
-
 		//para keyframes
 		inputKeyframes(mainWindow.getsKeys());
 		animacion.animate();
 		animacion.inputKeyframes(mainWindow.getsKeys());
-
-
-
-
-
 
 
 		// Clear the window
@@ -531,8 +475,15 @@ int main()
 
 		/* Luces */
 
-		lum.setLuminaria(movimiento.horaDia());
+		lum.setLuminaria(movimiento.horaDia(), mainWindow.getbutonKi());
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+		/*Luces del kiosco*/
+		if (mainWindow.getbutonKi()) {
+			spotLights[1].SetFlash(glm::vec3(0.0f, 3.0f, 0.0f), movimiento.getMovCir());
+			spotLights[2].SetFlash(movimiento.getMovLin(), glm::vec3(0.0f, -1.0f, 0.0f));
+			spotLights[3].SetFlash(movimiento.getMovLin_2(), glm::vec3(0.0f, -1.0f, 0.0f));
+		}
+
 		shaderList[0].SetDirectionalLight(lum.getDirectional());
 		shaderList[0].SetPointLights(pointLights, lum.getPointCount());
 		shaderList[0].SetSpotLights(spotLights, lum.getSpotCount());
@@ -545,17 +496,17 @@ int main()
 
 		glm::mat4 model(1.0);
 
-		/*Piso provisinal para probar iluminaciones*/
+		/*Piso provisinal para probar iluminaciones
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		brickTexture.UseTexture();
-		meshList[0]->RenderMesh();
+		meshList[0]->RenderMesh();*/
 
+		/*
 
-
-		/*Helicoptero por keyframes*/
+		/*Helicoptero por keyframes
 		model = glm::mat4(1.0);
 		posblackhawk = animacion.movAvion();
 		model = glm::translate(model, posblackhawk);
@@ -566,10 +517,10 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Blackhawk_M.RenderModel();
-		spotLights[3].SetPos(posblackhawk);
+		spotLights[3].SetPos(posblackhawk);*/
 
 		////////////BATMAN LEGO DIBUJO//////////////////
-
+		/*
 		////Cadera
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 
@@ -587,7 +538,7 @@ int main()
 		BatmanCadera_M.RenderModel();
 		glm::mat4 posicionCadera(1.0);
 		posicionCadera = model;
-
+	
 		////Cinturon
 		posBatman = glm::vec3(0.0f, 0.0f, 0.0f);
 		model = glm::translate(model, posBatman);
@@ -720,14 +671,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BatmanCapa_M.RenderModel();
 		model = modelaux = posicionTorax;
-
+		*/
 		////////////////////////////////////////////////
 
-
+		
 		////////////QUIOSCO DIBUJO//////////////////
 
 		////Base01
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 
 
 		model = glm::mat4(1.0);
@@ -1002,7 +953,7 @@ int main()
 		////////////////////////////////////////////////
 
 
-
+		/*
 				//////HELICES ///////////////////////////
 		model = glm::mat4(1.0);
 		//posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
@@ -1028,7 +979,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Helicoptero_M.RenderModel();
-		//Nave_M.RenderModel();
+		*/
 
 		/* Se deja para recordar lo de traspaencia
 		//Agave �qu� sucede si lo renderizan antes del coche y de la pista?
@@ -1102,7 +1053,7 @@ int main()
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Bano_M.RenderModel();
+		//Bano_M.RenderModel();
 
 		/////Puerta Baño **** Separada para poder hacer animacion
 		model = glm::mat4(1.0);
@@ -1112,14 +1063,14 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		PuertaBano_M.RenderModel(); 
+		//PuertaBano_M.RenderModel(); 
 
 		/////Pasto
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Pasto_M.RenderModel();
 
 
@@ -1158,7 +1109,6 @@ void inputKeyframes(bool* keys)
 	{
 		bandera = true;
 	}
-
 
 
 }

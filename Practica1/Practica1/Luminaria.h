@@ -12,7 +12,7 @@ public:
 	DirectionalLight* getDirectional();
 	int getPointCount();
 	int getSpotCount();
-	void setLuminaria(int horaDia);
+	void setLuminaria(int horaDia, bool botonK);
 	~Luminaria();
 
 private:
@@ -30,9 +30,14 @@ private:
 	PointLight PLFaro_3;
 	PointLight PLFaro_4;
 	PointLight PLFaro_5;
+	PointLight PLFaro_6;
+	PointLight PLFaro_7;
+	PointLight PLFaro_8;
 
 	SpotLight SPLinterna;
-	SpotLight SPPista;
+	SpotLight SPPistaCir;
+	SpotLight SPPistaLin_1;
+	SpotLight SPPistaLin_2;
 
 	
 	int pointLightCount;

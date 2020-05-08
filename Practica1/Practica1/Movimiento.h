@@ -15,6 +15,12 @@ public:
 	float getGiroHelice();
 	float giroKitY();
 	float giroKitZ();
+
+	glm::vec3 getMovCir();
+	glm::vec3 getMovLin();
+
+	glm::vec3 getMovLin_2();
+
 	float horaDia();
 	GLfloat  time();
 	float getDeltaTime();
@@ -51,6 +57,10 @@ private:
 	float t_BB;
 
 	float contHora;
+	float cont;
 
+	float posX_luzSP;
+	float posZ_luzSP;
+	int DirX_luzSP;
 
 };
