@@ -11,7 +11,7 @@ Movimiento::Movimiento()
 	Para que se visualize correctamente desde el t=0 verificar que
 	la posición dada esté dentro del recorrido y entre en la primera condcional*/
 	posX_BH = 0.0f;
-	posY_BH = 0.0f;
+	posY_BH = 10.0f;
 	posZ_BH = 5.0f;
 	giroY_BH = 0.0f;
 	ruta_BH = 0;
@@ -47,7 +47,7 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 		giroHelice += 15.0f * deltaTime;
 
 
-		if (giroHelice == 200.0f || posY_BH < 4.5f) {
+		if (giroHelice == 200.0f || posY_BH < 20.0f) {
 			posY_BH += 0.6f * deltaTime;
 		}
 		else {
@@ -57,7 +57,7 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 			case 1:
 				if (posZ_BH < 5) {
 					posZ_BH += sin(0.3) * 2.5 * deltaTime;
-					posY_BH += sin(giroHelice) * deltaTime;
+					posY_BH += sin(1.5) * deltaTime;
 				}
 				else if (posZ_BH >= 5 && giroY_BH < 90) {
 					giroY_BH += 1.0;

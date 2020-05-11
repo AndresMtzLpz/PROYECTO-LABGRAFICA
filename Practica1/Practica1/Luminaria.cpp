@@ -31,7 +31,7 @@ Luminaria::Luminaria(PointLight * pointlight, SpotLight * spotlight)
 
 DirectionalLight* Luminaria::getDirectional()
 {
-	if (/*(hora >= 600 && hora < 1800)*/ false) {
+	if ((hora >= 600 && hora < 1800)) {
 		return &sunLight;
 	}
 	return &moonLight;
@@ -54,7 +54,7 @@ void Luminaria::setLuminaria(int horaDia, bool botonK)
 	//minuto = horaDia % 50 == 0 ? (minuto + 1) % 2: minuto ; //Cada 50 pasos (cada media hora) 1H =50 
 
 
-	if (/*(hora >= 600 && hora < 1800)*/ false) {
+	if ((hora >= 600 && hora < 1800)) {
 		spotLightCount = 0;
 		pointLightCount = 0;
 	}

@@ -153,6 +153,8 @@ Model Pavimento_M;
 Model PavimentoCirculo_M;
 Model PavimentoCirculito_M;
 Model Basura_M;
+Model HelicopteroLego_M;
+Model HelicesLego_M;
 
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
@@ -394,6 +396,10 @@ int main()
 	PavimentoCirculito_M.LoadModel("Models/Nuevo/pavimentoCirculito.obj");
 	Basura_M = Model();
 	Basura_M.LoadModel("Models/Nuevo/basura.obj");
+	HelicopteroLego_M = Model();
+	HelicopteroLego_M.LoadModel("Models/Nuevo/Helicoptero.obj");
+	HelicesLego_M = Model();
+	HelicesLego_M.LoadModel("Models/Nuevo/Helices.obj");
 
 	//luz direccional, s�lo 1 y siempre debe de existir
 	sunLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -963,33 +969,35 @@ int main()
 		////////////////////////////////////////////////
 
 
-		/*
-				//////HELICES ///////////////////////////
+		
+		//////HELICES ///////////////////////////
 		model = glm::mat4(1.0);
 		//posblackhawk = glm::vec3(movBlackHawkX, -1.85f + movBlackHawkY + 0.2f, movBlackHawkZ + movBlackHawkZ + 2.0f);
 		posblackhawk = movimiento.movBlackHawk(0.0, bandera) + glm::vec3(0.0, 0.2, 0.0);
 		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::rotate(model, movimiento.getGiroHelice() * 100, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Helices_M.RenderModel();
+		HelicesLego_M.RenderModel();
 
 		/////HELICOPTERO 02 ////////////////////
 		model = glm::mat4(1.0);
 		//posblackhawk = glm::vec3(movBlackHawkX, -1.85 + movBlackHawkY, movBlackHawkZ + movBlackHawkZ + 2.0f);
 		posblackhawk = movimiento.movBlackHawk(0.0, bandera);
 		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, movimiento.giroBlackHawk(), glm::vec3(0.0f, -1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Helicoptero_M.RenderModel();
-		*/
+		HelicopteroLego_M.RenderModel();
+		
 
 		/* Se deja para recordar lo de traspaencia
 		//Agave �qu� sucede si lo renderizan antes del coche y de la pista?
