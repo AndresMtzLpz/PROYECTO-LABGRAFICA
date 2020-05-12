@@ -29,7 +29,7 @@ Animaci�n por keyframes
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Material.h"
-
+#include "Sonido.h"
 #include "Sphere.h"
 #include"Model.h"
 #include "Skybox.h"
@@ -44,6 +44,7 @@ Animaci�n por keyframes
 
 const float toRadians = 3.14159265f / 180.0f;
 bool bandera;
+bool audio = false;
 
 //////VARIABLES BATMAN LEGO///////
 float posXBatman = 20.0, posYBatman = 2.0f, posZBatman = 0.0;
@@ -61,6 +62,7 @@ std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 Camera camera;
 
+Sonido hotChip;
 
 /*Texruras*/
 Texture brickTexture;
@@ -243,6 +245,7 @@ int main()
 {
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
+	hotChip = Sonido();
 
 	CreateShaders();
 	//CreaPiso();
@@ -487,6 +490,13 @@ int main()
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 
+		/*Audio*/
+		if (mainWindow.getAudio()) {
+			hotChip.Reproduce();
+		}
+		else {
+			hotChip.Deten();
+		}
 
 		/* Luces */
 
