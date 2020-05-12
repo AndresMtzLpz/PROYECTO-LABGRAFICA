@@ -27,6 +27,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	abrirPuerta = 0.0f;
 
 	botonKi = false;
+	audio = true;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -190,6 +191,11 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		{
 			theWindow->botonKi = !theWindow->botonKi;
 
+		}
+
+		if (key == GLFW_KEY_M && action == GLFW_PRESS)
+		{
+			theWindow->audio = !theWindow->audio;
 		}
 
 

@@ -19,11 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.dll">
-      <HintPath>C:\Users\muser\Documents\2020-2\Gráfica\_Proyecto Final\PROYECTO-LABGRAFICA\Practica1\Practica1\System.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="AnimacionKF.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
@@ -37,6 +32,7 @@
     <ClCompile Include="practica12.cpp" />
     <ClCompile Include="Shader_light.cpp" />
     <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="Sonido.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -57,6 +53,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Shader_light.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Sonido.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="stb_image.h" />
@@ -131,7 +128,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>irrKlang.lib;assimp-vc140-mt.lib;opengl32.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,7 +153,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>irrKlang.lib;assimp-vc140-mt.lib;opengl32.lib;glfw3.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
