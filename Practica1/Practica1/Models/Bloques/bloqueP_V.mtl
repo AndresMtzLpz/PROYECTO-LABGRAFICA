@@ -1,0 +1,11 @@
+# Blender MTL File: 'Legos.blend'
+# Material Count: 1
+
+newmtl Material
+Ka 0.5882353 0.5882353 0.5882353
+Kd 0.627451 0.64705884 0.6627451
+Ks 0.08980393 0.08980393 0.08980393
+Ns 6.6800003
+Ni 1.0
+illum 2
+map_Kd b_verde.png

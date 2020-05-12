@@ -33,6 +33,7 @@ private:
 	PointLight PLFaro_6;
 	PointLight PLFaro_7;
 	PointLight PLFaro_8;
+	PointLight PLFaro_9;
 
 	SpotLight SPLinterna;
 	SpotLight SPPistaCir;

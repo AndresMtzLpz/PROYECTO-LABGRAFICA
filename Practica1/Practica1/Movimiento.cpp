@@ -254,7 +254,7 @@ float Movimiento::giro(float p_ini, float p_final, float p_actual)
 }
 
 float Movimiento::horaDia() {
-	contHora += deltaTime * 40;
+	contHora += deltaTime * 15;
 	//printf("%d \n\n", (int)contHora % 24);
 	return (int)contHora % 2400;
 }
