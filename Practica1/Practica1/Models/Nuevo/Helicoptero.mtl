@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
-# File Created: 11.05.2020 15:20:10
+# File Created: 11.05.2020 18:36:39
 
 newmtl Plastic_Gray_Glossy
 	Kd 0.4667 0.4667 0.4667
@@ -14,6 +14,7 @@ newmtl Plastic_Gray_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd gris.png
 
 newmtl Plastic_White_Glossy
 	Kd 0.9020 0.9020 0.9020
@@ -28,6 +29,7 @@ newmtl Plastic_White_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd blanco.png
 
 newmtl Plastic_Black_Glossy
 	Kd 0.0745 0.0745 0.0745
@@ -42,6 +44,7 @@ newmtl Plastic_Black_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd MetalReja.png
 
 newmtl Plastic_Yellow_Glossy
 	Kd 0.9098 0.7647 0.0000
@@ -56,6 +59,7 @@ newmtl Plastic_Yellow_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd amarillo.png
 
 newmtl Plastic_Red_Glossy
 	Kd 0.8863 0.0000 0.0000
@@ -70,6 +74,7 @@ newmtl Plastic_Red_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd rojoA.png
 
 newmtl Glass_Black
 	Kd 0.0745 0.0745 0.0745
@@ -84,6 +89,7 @@ newmtl Glass_Black
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd MetalReja.png
 
 newmtl LED_Red
 	Kd 0.6314 0.0000 0.0000
@@ -98,3 +104,4 @@ newmtl LED_Red
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd rojoA.png

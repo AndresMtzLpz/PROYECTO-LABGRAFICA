@@ -17,7 +17,9 @@ public:
 	void animaAvion();
 
 	glm::vec3 movAvion();
-	float rGiroAvion();
+	float rGiroAvionX();
+	float rGiroAvionZ();
+	float rVueltaAvion();
 	void inputKeyframes(bool* keys);
 	~AnimacionKF();
 
@@ -25,7 +27,8 @@ private:
 
 	float posXavion, posYavion , posZavion;
 	float movAvion_x, movAvion_y , movAvion_z;
-	float giroAvion;
+	float giroAvionX, giroAvionZ;
+	float vueltaAvion;
 
 	float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador;
 
@@ -48,9 +51,12 @@ private:
 		float movAvion_xInc;		//Variable para IncrementoX
 		float movAvion_yInc;		//Variable para IncrementoY
 		float movAvion_zInc;		//Variable para IncrementoZ
-		float giroAvion;
-		float giroAvionInc;
-
+		float giroAvionX;
+		float giroAvionXInc;
+		float giroAvionZ;
+		float giroAvionZInc;
+		float vueltaAvion;
+		float vueltaAvionInc;
 
 	}FRAME;
 

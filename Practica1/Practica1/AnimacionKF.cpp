@@ -10,7 +10,9 @@ AnimacionKF::AnimacionKF()
 	movAvion_x = 0.0f; 
 	movAvion_y = 0.0f;
 	movAvion_z = 0.0f;
-	giroAvion = 0;
+	giroAvionX = 0;
+	giroAvionZ = 0;
+	vueltaAvion = 0;
 
 	i_max_steps = 90;
 	play = false;
@@ -33,7 +35,9 @@ void AnimacionKF::saveFrame(void)
 	KeyFrame[FrameIndex].movAvion_x = movAvion_x;
 	KeyFrame[FrameIndex].movAvion_y = movAvion_y;
 	KeyFrame[FrameIndex].movAvion_z = movAvion_z;
-	KeyFrame[FrameIndex].giroAvion;
+	KeyFrame[FrameIndex].giroAvionX;
+	KeyFrame[FrameIndex].giroAvionZ;
+	KeyFrame[FrameIndex].vueltaAvion;
 
 	FrameIndex++;
 }
@@ -44,7 +48,9 @@ void AnimacionKF::resetElements(void)
 	movAvion_x = KeyFrame[0].movAvion_x;
 	movAvion_y = KeyFrame[0].movAvion_y;
 	movAvion_z = KeyFrame[0].movAvion_z;
-	giroAvion = KeyFrame[0].giroAvion;
+	giroAvionX = KeyFrame[0].giroAvionZ;
+	giroAvionZ = KeyFrame[0].giroAvionX;
+	vueltaAvion = KeyFrame[0].vueltaAvion;
 }
 
 void AnimacionKF::interpolation(void)
@@ -52,8 +58,9 @@ void AnimacionKF::interpolation(void)
 	KeyFrame[playIndex].movAvion_xInc = (KeyFrame[playIndex + 1].movAvion_x - KeyFrame[playIndex].movAvion_x) / i_max_steps;
 	KeyFrame[playIndex].movAvion_yInc = (KeyFrame[playIndex + 1].movAvion_y - KeyFrame[playIndex].movAvion_y) / i_max_steps;
 	KeyFrame[playIndex].movAvion_zInc = (KeyFrame[playIndex + 1].movAvion_z - KeyFrame[playIndex].movAvion_z) / i_max_steps;
-	KeyFrame[playIndex].giroAvionInc = (KeyFrame[playIndex + 1].giroAvion - KeyFrame[playIndex].giroAvion) / i_max_steps;
-
+	KeyFrame[playIndex].giroAvionXInc = (KeyFrame[playIndex + 1].giroAvionX - KeyFrame[playIndex].giroAvionX) / i_max_steps;
+	KeyFrame[playIndex].giroAvionZInc = (KeyFrame[playIndex + 1].giroAvionZ - KeyFrame[playIndex].giroAvionZ) / i_max_steps;
+	KeyFrame[playIndex].vueltaAvionInc = (KeyFrame[playIndex + 1].vueltaAvion - KeyFrame[playIndex].vueltaAvion) / i_max_steps;
 }
 
 
@@ -66,7 +73,7 @@ void AnimacionKF::animate(void)
 		{
 			playIndex++;
 			printf("playindex : %d\n", playIndex);
-			printf("movAvion_x=%f ,movAvion_y=%f,,movAvion_z=%f ,giroAvion= %f\n", KeyFrame[playIndex].movAvion_x, KeyFrame[playIndex].movAvion_y, KeyFrame[playIndex].movAvion_z, KeyFrame[playIndex].giroAvion);
+			printf("movAvion_x=%f ,movAvion_y=%f,,movAvion_z=%f ,giroAvion= %f\n", KeyFrame[playIndex].movAvion_x, KeyFrame[playIndex].movAvion_y, KeyFrame[playIndex].movAvion_z, KeyFrame[playIndex].giroAvionX , KeyFrame[playIndex].giroAvionZ, KeyFrame[playIndex].vueltaAvion);
 			printf("\n");
 			if (playIndex > FrameIndex - 2)	//end of total animation?
 			{
@@ -91,7 +98,9 @@ void AnimacionKF::animate(void)
 			movAvion_x += KeyFrame[playIndex].movAvion_xInc;
 			movAvion_y += KeyFrame[playIndex].movAvion_yInc;
 			movAvion_z += KeyFrame[playIndex].movAvion_zInc;
-			giroAvion += KeyFrame[playIndex].giroAvionInc;
+			giroAvionX += KeyFrame[playIndex].giroAvionXInc;
+			giroAvionZ += KeyFrame[playIndex].giroAvionZInc;
+			vueltaAvion += KeyFrame[playIndex].vueltaAvionInc;
 			i_curr_steps++;
 		}
 
@@ -108,9 +117,9 @@ void AnimacionKF::animate(void)
 }
 
 void AnimacionKF::animaAvion() {
-	posXavion = 2.0;
-	posYavion = 2.0;
-	posZavion = 0.0;
+	posXavion = 80.0;
+	posYavion = 30.0;
+	posZavion = 100.0;
 
 	i_curr_steps = 29;
 	FrameIndex = 29;
@@ -118,157 +127,80 @@ void AnimacionKF::animaAvion() {
 	KeyFrame[0].movAvion_x = 0.0f;
 	KeyFrame[0].movAvion_y = 0.0f;
 	KeyFrame[0].movAvion_z = 0.0f;
-	KeyFrame[0].giroAvion = 0;
+	KeyFrame[0].giroAvionX = 0;
+	KeyFrame[0].giroAvionZ = 0;
+	KeyFrame[0].vueltaAvion = 0;
 
 
-	KeyFrame[1].movAvion_x = 1.0f;
-	KeyFrame[1].movAvion_y = 2.0f;
-	KeyFrame[1].movAvion_z = 0.0f;
-	KeyFrame[1].giroAvion = 0;
+	KeyFrame[1].movAvion_x = 0.0f;
+	KeyFrame[1].movAvion_y = 0.0f;
+	KeyFrame[1].movAvion_z = -145.0f;
+	KeyFrame[1].giroAvionX = 0;
+	KeyFrame[1].giroAvionZ = 360;
+	KeyFrame[1].vueltaAvion = 0;
 
 
-	KeyFrame[2].movAvion_x = 2.0f;
+	KeyFrame[2].movAvion_x = 0.0f;
 	KeyFrame[2].movAvion_y = 0.0f;
-	KeyFrame[2].movAvion_z = 0.0f;
-	KeyFrame[2].giroAvion = 0;
+	KeyFrame[2].movAvion_z = -175.0f;
+	KeyFrame[2].giroAvionX = 0;
+	KeyFrame[2].giroAvionZ = 360;
+	KeyFrame[2].vueltaAvion = 90;
 
+	KeyFrame[3].movAvion_x = -150.0f;
+	KeyFrame[3].movAvion_y = 0.0f;
+	KeyFrame[3].movAvion_z = -175.0f;
+	KeyFrame[3].giroAvionX = 360;
+	KeyFrame[3].giroAvionZ = 360;
+	KeyFrame[3].vueltaAvion = 90;
 
-	KeyFrame[3].movAvion_x = 3.0f;
-	KeyFrame[3].movAvion_y = -2.0f;
-	KeyFrame[3].movAvion_z = 0.0f;
-	KeyFrame[3].giroAvion = 0;
-
-	KeyFrame[4].movAvion_x = 4.0f;
+	KeyFrame[4].movAvion_x = -175.0f;
 	KeyFrame[4].movAvion_y = 0.0f;
-	KeyFrame[4].movAvion_z = 0.0f;
-	KeyFrame[4].giroAvion = 0.0f;
+	KeyFrame[4].movAvion_z = -175.0f;
+	KeyFrame[4].giroAvionX = 360;
+	KeyFrame[4].giroAvionZ = 360;
+	KeyFrame[4].vueltaAvion = 180;
 
-	KeyFrame[5].movAvion_x = 5.0f;
-	KeyFrame[5].movAvion_y = 2.0f;
-	KeyFrame[5].movAvion_z = 0.0f;
-	KeyFrame[5].giroAvion = 0;
+	KeyFrame[5].movAvion_x = -175.0f;
+	KeyFrame[5].movAvion_y = 0.0f;
+	KeyFrame[5].movAvion_z = -25.0f;
+	KeyFrame[5].giroAvionX = 360;
+	KeyFrame[5].giroAvionZ = 0;
+	KeyFrame[5].vueltaAvion = 180;
 
-	KeyFrame[6].movAvion_x = 6.0f;
+	KeyFrame[6].movAvion_x = -175.0f;
 	KeyFrame[6].movAvion_y = 0.0f;
 	KeyFrame[6].movAvion_z = 0.0f;
-	KeyFrame[6].giroAvion = 0;
+	KeyFrame[6].giroAvionX = 360;
+	KeyFrame[6].giroAvionZ = 0;
+	KeyFrame[6].vueltaAvion = 270;
 
-	KeyFrame[7].movAvion_x = 7.0f;
-	KeyFrame[7].movAvion_y = -2.0f;
+	KeyFrame[7].movAvion_x = -25.0f;
+	KeyFrame[7].movAvion_y = 0.0f;
 	KeyFrame[7].movAvion_z = 0.0f;
-	KeyFrame[7].giroAvion = 0;
+	KeyFrame[7].giroAvionX = 0;
+	KeyFrame[7].giroAvionZ = 0;
+	KeyFrame[7].vueltaAvion = 270;
 
-	KeyFrame[8].movAvion_x = 8.0f;
+	KeyFrame[8].movAvion_x = 0.0f;
 	KeyFrame[8].movAvion_y = 0.0f;
 	KeyFrame[8].movAvion_z = 0.0f;
-	KeyFrame[8].giroAvion = 0;
-
-	KeyFrame[9].movAvion_x = 9.0f;
-	KeyFrame[9].movAvion_y = 2.0f;
-	KeyFrame[9].movAvion_z = 0.0f;
-	KeyFrame[9].giroAvion = 0.0f;
-
-	KeyFrame[10].movAvion_x = 10.0f;
-	KeyFrame[10].movAvion_y = 0.0f;
-	KeyFrame[10].movAvion_z = 0.0f;
-	KeyFrame[10].giroAvion = 0;
-
-	KeyFrame[11].movAvion_x = 10.0f;
-	KeyFrame[11].movAvion_y = 0.0f;
-	KeyFrame[11].movAvion_z = -1.0f;
-	KeyFrame[11].giroAvion = 45;
-
-	KeyFrame[12].movAvion_x = 10.0f;
-	KeyFrame[12].movAvion_y = 0.0f;
-	KeyFrame[12].movAvion_z = -2.0f;
-	KeyFrame[12].giroAvion = 90;
-
-	KeyFrame[13].movAvion_x = 10.0f;
-	KeyFrame[13].movAvion_y = 0.0f;
-	KeyFrame[13].movAvion_z = -3.0f;
-	KeyFrame[13].giroAvion = 135;
-
-	KeyFrame[14].movAvion_x = 10.0f;
-	KeyFrame[14].movAvion_y = 0.0f;
-	KeyFrame[14].movAvion_z = -4.0f;
-	KeyFrame[14].giroAvion = 180.0;
-
-	KeyFrame[15].movAvion_x = 9.0f;
-	KeyFrame[15].movAvion_y = 2.0f;
-	KeyFrame[15].movAvion_z = -4.0f;
-	KeyFrame[15].giroAvion = 180.0;
-
-	KeyFrame[16].movAvion_x = 8.0f;
-	KeyFrame[16].movAvion_y = 0.0f;
-	KeyFrame[16].movAvion_z = -4.0f;
-	KeyFrame[16].giroAvion = 180;
-
-	KeyFrame[17].movAvion_x = 7.0f;
-	KeyFrame[17].movAvion_y = -2.0f;
-	KeyFrame[17].movAvion_z = -4.0f;
-	KeyFrame[17].giroAvion = 180;
-
-	KeyFrame[18].movAvion_x = 6.0f;
-	KeyFrame[18].movAvion_y = 0.0f;
-	KeyFrame[18].movAvion_z = -4.0f;
-	KeyFrame[18].giroAvion = 180;
-
-	KeyFrame[19].movAvion_x = 5.0f;
-	KeyFrame[19].movAvion_y = 2.0f;
-	KeyFrame[19].movAvion_z = -4.0f;
-	KeyFrame[19].giroAvion = 180.0f;
-
-	KeyFrame[20].movAvion_x = 4.0f;
-	KeyFrame[20].movAvion_y = 0.0f;
-	KeyFrame[20].movAvion_z = -4.0f;
-	KeyFrame[20].giroAvion = 180;
-
-	KeyFrame[21].movAvion_x = 3.0f;
-	KeyFrame[21].movAvion_y = -2.0f;
-	KeyFrame[21].movAvion_z = -4.0f;
-	KeyFrame[21].giroAvion = 180;
-
-	KeyFrame[22].movAvion_x = 2.0f;
-	KeyFrame[22].movAvion_y = 0.0f;
-	KeyFrame[22].movAvion_z = -4.0f;
-	KeyFrame[22].giroAvion = 180.0;
-
-	KeyFrame[23].movAvion_x = 1.0f;
-	KeyFrame[23].movAvion_y = 2.0f;
-	KeyFrame[23].movAvion_z = -4.0f;
-	KeyFrame[23].giroAvion = 180.0;
-
-	KeyFrame[24].movAvion_x = 0.0f;
-	KeyFrame[24].movAvion_y = 0.0f;
-	KeyFrame[24].movAvion_z = -4.0f;
-	KeyFrame[24].giroAvion = 180;
-
-	KeyFrame[25].movAvion_x = 0.0f;
-	KeyFrame[25].movAvion_y = 0.0f;
-	KeyFrame[25].movAvion_z = -3.0f;
-	KeyFrame[25].giroAvion = 225;
-
-	KeyFrame[26].movAvion_x = 0.0f;
-	KeyFrame[26].movAvion_y = 0.0f;
-	KeyFrame[26].movAvion_z = -2.0f;
-	KeyFrame[26].giroAvion = 270;
-
-	KeyFrame[27].movAvion_x = 0.0f;
-	KeyFrame[27].movAvion_y = 0.0f;
-	KeyFrame[27].movAvion_z = -1.0f;
-	KeyFrame[27].giroAvion = 315.0f;
-
-	KeyFrame[28].movAvion_x = 0.0f;
-	KeyFrame[28].movAvion_y = 0.0f;
-	KeyFrame[28].movAvion_z = 0.0f;
-	KeyFrame[28].giroAvion = 360.0f;
+	KeyFrame[8].giroAvionX = 0;
+	KeyFrame[8].giroAvionZ = 0;
+	KeyFrame[8].vueltaAvion = 360;
 }
 
 glm::vec3 AnimacionKF::movAvion() {
 	return glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion + movAvion_z);
 }
-float AnimacionKF::rGiroAvion() {
-	return giroAvion;
+float AnimacionKF::rGiroAvionX() {
+	return giroAvionX;
+}
+float AnimacionKF::rGiroAvionZ() {
+	return giroAvionZ;
+}
+float AnimacionKF::rVueltaAvion() {
+	return vueltaAvion;
 }
 
 void AnimacionKF::inputKeyframes(bool* keys)

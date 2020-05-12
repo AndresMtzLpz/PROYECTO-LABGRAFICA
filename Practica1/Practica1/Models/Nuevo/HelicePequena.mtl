@@ -1,0 +1,32 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 11.05.2020 18:34:27
+
+newmtl Plastic_Red_Glossy
+	Kd 0.8863 0.0000 0.0000
+	Ks 0.3300 0.3300 0.3300
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.5678
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd rojoA.png
+
+newmtl Plastic_Gray_Glossy
+	Kd 0.4667 0.4667 0.4667
+	Ks 0.3300 0.3300 0.3300
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.5678
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd gris.png

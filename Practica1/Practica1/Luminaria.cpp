@@ -17,12 +17,12 @@ Luminaria::Luminaria(PointLight * pointlight, SpotLight * spotlight)
 
 	/* Definicion luces*/
 	sunLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.8f, //Intensidad luminosa
-		0.0f, 0.0f, -1.0f);
+		0.60f, 2.3f, //Intensidad luminosa 60, 2.2
+		0.0f, 10.0f, 0.0f);
 
-	moonLight = DirectionalLight(0.05f, 0.1f, 0.60f,
-		0.3f, 0.5f, //Intensidad luminosa
-		0.0f, 0.0f, -1.0f);
+	moonLight = DirectionalLight(0.05f, 0.1f, 0.65f,
+		1.0f, 2.0f, //Intensidad luminosa
+		0.0f, 10.0f, 0.0f);
 
 	creaPointLights();
 	creaSpotLights();
@@ -53,10 +53,10 @@ void Luminaria::setLuminaria(int horaDia, bool botonK)
 	hora = horaDia;
 	//minuto = horaDia % 50 == 0 ? (minuto + 1) % 2: minuto ; //Cada 50 pasos (cada media hora) 1H =50 
 
-
 	if ((hora >= 600 && hora < 1800)) {
 		spotLightCount = 0;
-		pointLightCount = 0;
+		pointLightCount = 1;
+		*(pointLight + 0) = PLFaro_9;
 	}
 	else {
 		switch (minuto)
@@ -64,13 +64,14 @@ void Luminaria::setLuminaria(int horaDia, bool botonK)
 		case 0:
 			*(pointLight + 1) = PLFaro_1;
 			*(pointLight + 2) = PLFaro_2;
-			*(pointLight + 0) = PLFaro_3;
+			*(pointLight + 0) = PLFaro_9;
 			*(pointLight + 3) = PLFaro_4;
 			*(pointLight + 4) = PLFaro_5;
 			*(pointLight + 5) = PLFaro_6;
 			*(pointLight + 6) = PLFaro_7;
 			*(pointLight + 7) = PLFaro_8;
-			pointLightCount = 8;
+			*(pointLight + 8) = PLFaro_3;
+			pointLightCount = 9;
 			break;
 		case 1:
 			*(pointLight + 1) = PLFaro_2;
@@ -96,41 +97,47 @@ Luminaria::~Luminaria()
 	//free(allPointLights);
 }
 
+
 void Luminaria::creaPointLights()
 {
 	/*Declaracion de todas las luces tipo PointLigth*/
 	PLFaro_8 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		-7.5f, 4.2f, -66.0f,
 		0.3f, 0.2f, 0.1f);
 	PLFaro_7 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		7.5f, 4.2f, -48.0f,
 		0.3f, 0.2f, 0.1f);
 	PLFaro_6 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		-7.5f, 4.2f, 62.0f,
 		0.3f, 0.2f, 0.1f);
 	PLFaro_5 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f, //Intensidades
+		1.70f, 12.0f, //Intensidades
 		-7.5f, 4.2f, -40.0f, //Posicion de la luz
 		0.3f, 0.2f, 0.1f);	//coeficientes de una ecuacion de segundo grado, que no den valores complejos
 	PLFaro_4 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		7.5f, 4.2f, 50.0f,
-		0.3f, 0.2f, 0.1f);
+		0.1f, 0.7f, 0.12f);
 	PLFaro_3 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		7.5f, 4.2f, 28.0f,
-		0.3f, 0.2f, 0.1f);
+		0.1f, 0.7f, 0.12f);
 	PLFaro_2 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		-7.5f, 4.2f, 42.0f,
-		0.3f, 0.2f, 0.1f);
+		0.1f, 0.7f, 0.12f);
 	PLFaro_1 = PointLight(1.0f, 1.0f, 0.9f,
-		2.0f, 12.0f,
+		1.70f, 12.0f,
 		7.5f, 4.2f, -26.0f,
-		0.3f, 0.2f, 0.1f);
+		0.1f, 0.7f, 0.12f);
+
+	PLFaro_9 = PointLight(0.70f, .70f, 0.3f,
+		1.5f, 50.0f,
+		0.0f, 22.0f, 0.0f,
+		0.1f, 0.9f, 0.14f);
 }
 
 void Luminaria::creaSpotLights()
@@ -153,7 +160,7 @@ void Luminaria::creaSpotLights()
 		0.0f, -1.0f, 0.0f, //Direccion de la luz
 		1.0f, 0.0f, 0.0f,//Atenuacion
 		25.0f);
-	SPLinterna = SpotLight(0.0f, 0.0f, 0.0f,
+	SPLinterna = SpotLight(1.0f, 1.0f, 1.0f,
 		0.0f, 2.0f,
 		0.0f, 0.0f, 0.0f, //Posicion de la luz
 		0.0f, -1.0f, 0.0f, //Direccion de la luz

@@ -11,8 +11,11 @@ public:
 	glm::vec3 movBlackHawk(float movOffset, bool despegue_BH);
 	glm::vec3 movKit(float movOffset);
 	glm::vec3 movBall(float movOffset);
+	glm::vec3 movBici(float movOffset, bool arranque_Bici);
 	float giroBlackHawk();
 	float getGiroHelice();
+	float giroBici();
+	float getGiroLlantas();
 	float giroKitY();
 	float giroKitZ();
 
@@ -39,8 +42,19 @@ private:
 	float posZ_BH;
 	float dirY_BH;
 	float giroY_BH;
+	float subebaja_BH;
 	int	  ruta_BH;
 	float giroHelice;
+
+	//Posicion de Bici
+	float posX_Bici;
+	float posY_Bici;
+	float posZ_Bici;
+	float dirY_Bici;
+	float giroY_Bici;
+	int	  ruta_Bici;
+	float giroLlantas;
+
 
 	float posX_KK;
 	float posY_KK;

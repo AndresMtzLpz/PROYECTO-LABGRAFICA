@@ -10,13 +10,24 @@ Movimiento::Movimiento()
 	/*Aqui se declaran las posiciones iniciales para cada objeto
 	Para que se visualize correctamente desde el t=0 verificar que
 	la posición dada esté dentro del recorrido y entre en la primera condcional*/
-	posX_BH = 0.0f;
-	posY_BH = 10.0f;
-	posZ_BH = 5.0f;
+	posX_BH = 30.0f;
+	posY_BH = 5.0f;
+	posZ_BH = -25.0f;
+	subebaja_BH = 0.0f;
 	giroY_BH = 0.0f;
 	ruta_BH = 0;
 	dirY_BH = 1;
 	giroHelice = 0.0;
+
+	///Bici//
+	posX_Bici = 60.0f;
+	posY_Bici = 1.5f;
+	posZ_Bici = 5.0;
+	//dirY_Bici;
+	giroY_Bici = 0.0f;
+	//ruta_Bici =;
+	giroLlantas = 0.0f;
+	
 
 	posX_KK = -10.0f;
 	posY_KK = 0.0f;
@@ -44,20 +55,22 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 {
 
 	if (despegue_BH) {
-		giroHelice += 15.0f * deltaTime;
+		giroHelice += 25.0f * deltaTime;
+		subebaja_BH += 0.6 * deltaTime;
 
 
 		if (giroHelice == 200.0f || posY_BH < 20.0f) {
-			posY_BH += 0.6f * deltaTime;
+			posY_BH += 1.0f * deltaTime;
 		}
 		else {
 
 			switch (ruta_BH)
 			{
 			case 1:
-				if (posZ_BH < 5) {
-					posZ_BH += sin(0.3) * 2.5 * deltaTime;
-					posY_BH += sin(1.5) * deltaTime;
+				if (posZ_BH < 10) {
+					posZ_BH += sin(0.7) * 2.5 * deltaTime;
+					posY_BH += sin(subebaja_BH) * deltaTime;
+					
 				}
 				else if (posZ_BH >= 5 && giroY_BH < 90) {
 					giroY_BH += 1.0;
@@ -67,9 +80,9 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 				break;
 
 			case 2:
-				if (posX_BH > -5) {
+				if (posX_BH > -10) {
 					posX_BH -= sin(0.7) * 2.5 * deltaTime;
-					posY_BH += sin(giroHelice) * deltaTime;
+					posY_BH += sin(subebaja_BH) * deltaTime;
 				}
 				else if (posX_BH <= -5 && giroY_BH < 180) {
 					giroY_BH += 1.0;
@@ -81,9 +94,9 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 
 				break;
 			case 3:
-				if (posZ_BH > -5) {
-					posZ_BH -= sin(0.4) * 2.5 * deltaTime;
-					posY_BH += sin(giroHelice) * deltaTime;
+				if (posZ_BH > -10) {
+					posZ_BH -= sin(0.7) * 2.5 * deltaTime;
+					posY_BH += sin(subebaja_BH) * deltaTime;
 				}
 				else if (posZ_BH <= 5 && giroY_BH < 270) {
 					giroY_BH += 1.0;
@@ -92,9 +105,9 @@ glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
 					ruta_BH += 1;
 				break;
 			case 4:
-				if (posX_BH < 5) {
-					posX_BH += sin(0.3) * 2.5 * deltaTime;
-					posY_BH += sin(giroHelice) * deltaTime;
+				if (posX_BH < 10) {
+					posX_BH += sin(0.7) * 2.5 * deltaTime;
+					posY_BH += sin(subebaja_BH) * deltaTime;
 				}
 				else if (posX_BH >= 5 && giroY_BH < 360) {
 					giroY_BH += 1.0;
@@ -203,6 +216,42 @@ glm::vec3 Movimiento::movBall(float movOffset)
 	return glm::vec3(posX_BB,posY_BB - 1,posZ_BB);
 }
 
+glm::vec3 Movimiento::movBici(float movOffset, bool arranque_Bici)
+{
+	if (arranque_Bici) {
+		if (posX_Bici > 30 && giroY_Bici == 0.0)
+		{
+			giroLlantas += 25.0f * deltaTime;
+			posX_Bici -= 10.0f * deltaTime;
+
+		}
+		else if (posX_Bici <= 30 && giroY_Bici > -180.0)
+		{
+			giroLlantas += 25.0f * deltaTime;
+			giroY_Bici -= 40.0 * deltaTime;
+			posZ_Bici -= 1.0 * deltaTime;
+		}
+		else if (posX_Bici < 60 && giroY_Bici != 0.0)
+		{
+			giroLlantas += 25.0f * deltaTime;
+			posX_Bici += 10.0f * deltaTime;
+		}
+		else if (posX_Bici >= 60 && giroY_Bici > -360.0)
+		{
+			giroLlantas += 25.0f * deltaTime;
+			giroY_Bici -= 40.0 * deltaTime;
+			posZ_Bici += 1.0 * deltaTime;
+		}
+		else {
+			
+			arranque_Bici = false;
+			giroY_Bici = 0.0;
+		}
+	}
+	return glm::vec3(posX_Bici, posY_Bici, posZ_Bici);
+}
+
+////////Helicopero///////////
 float Movimiento::giroBlackHawk()
 {
 	return giroY_BH * toRadians;
@@ -211,6 +260,17 @@ float Movimiento::giroBlackHawk()
 float Movimiento::getGiroHelice() {
 	return giroHelice * toRadians;
 }
+
+////////Bicicleta//////////////
+float Movimiento::giroBici()
+{
+	return giroY_Bici * toRadians;
+}
+
+float Movimiento::getGiroLlantas() {
+	return giroLlantas * toRadians;
+}
+///////////////////
 
 float Movimiento::giroKitY()
 {
@@ -254,7 +314,7 @@ float Movimiento::giro(float p_ini, float p_final, float p_actual)
 }
 
 float Movimiento::horaDia() {
-	contHora += deltaTime * 40;
+	contHora += deltaTime * 15;
 	//printf("%d \n\n", (int)contHora % 24);
 	return (int)contHora % 2400;
 }

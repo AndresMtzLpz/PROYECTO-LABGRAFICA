@@ -14,6 +14,7 @@ newmtl Plastic_Black_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd MetalReja.png
 
 newmtl Plastic_White_Glossy
 	Kd 0.9020 0.9020 0.9020
@@ -28,6 +29,7 @@ newmtl Plastic_White_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd blanco.png
 
 newmtl Plastic_Red_Glossy
 	Kd 0.8863 0.0000 0.0000
@@ -42,6 +44,7 @@ newmtl Plastic_Red_Glossy
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd rojoA.png
 
 newmtl LED_Red
 	Kd 0.6314 0.0000 0.0000
@@ -56,3 +59,4 @@ newmtl LED_Red
 	Ni 1.5200
 	Ke 0.0000 0.0000 0.0000
 	illum 2
+	map_Kd rojoA.png
