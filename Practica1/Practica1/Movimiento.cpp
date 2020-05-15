@@ -49,6 +49,8 @@ Movimiento::Movimiento()
 	posX_luzSP = 0.0f;
 	posZ_luzSP = 0.0f;
 	DirX_luzSP = 1;
+	giroY_SB = 0;
+	Dir_giroSB = 1;
 }
 
 glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
@@ -277,6 +279,17 @@ float Movimiento::giroKitY()
 	return giroY_KK * toRadians;
 }
 
+//////// Sube y baja, rotación/////////
+float Movimiento::giroSubeBaja()
+{
+	if (abs(giroY_SB) >= 30) {
+		Dir_giroSB *= -1;
+		giroY_SB += deltaTime * 5.0 * Dir_giroSB; //Evita rebotes
+	}
+	giroY_SB += deltaTime * 3.0 * Dir_giroSB;
+	return giroY_SB * toRadians;
+}
+
 float Movimiento::giroKitZ()
 {
 	return giroZ_KK * toRadians;
@@ -297,7 +310,7 @@ glm::vec3 Movimiento::getMovLin()
 		DirX_luzSP *= -1;
 		posX_luzSP += deltaTime * 3.0 * DirX_luzSP; //Evita rebotes
 	}
-	posX_luzSP += deltaTime * 2.0 * DirX_luzSP;
+	posX_luzSP += deltaTime * 1.0 * DirX_luzSP;
 	posZ_luzSP = posX_luzSP / 2;
 	return glm::vec3(posX_luzSP,4, posZ_luzSP);
 }

@@ -17,6 +17,7 @@ public:
 	float giroBici();
 	float getGiroLlantas();
 	float giroKitY();
+	float giroSubeBaja();
 	float giroKitZ();
 
 	glm::vec3 getMovCir();
@@ -76,5 +77,8 @@ private:
 	float posX_luzSP;
 	float posZ_luzSP;
 	int DirX_luzSP;
+
+	float giroY_SB;
+	int Dir_giroSB;
 
 };

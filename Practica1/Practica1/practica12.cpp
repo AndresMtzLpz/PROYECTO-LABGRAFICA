@@ -92,7 +92,8 @@ Model Helices_M;
 Model Helicoptero_M;
 Model Bloque_plano_M;
 Model Bloque_plano_V_M;
-
+Model Punta_M;
+Model SubeBaja_M;
 ///////MODELOS DE BATMAN LEGO//////////////
 Model BatmanCabeza_M;  //1
 Model BatmanMascara_M; //2
@@ -273,6 +274,10 @@ int main()
 	Material_opaco = Material(0.1f, 2);
 
 	/*Craga de modelos*/
+	Punta_M = Model();
+	Punta_M.LoadModel("Models/Bloques/Centro.obj");
+	SubeBaja_M = Model();
+	SubeBaja_M.LoadModel("Models/Bloques/SubeeBajaa.obj");
 	Blackhawk_M = Model();
 	Blackhawk_M.LoadModel("Models/uh60.obj");
 	Helices_M = Model();
@@ -627,20 +632,21 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Avion_Lego_M.RenderModel();
-	
-		
-		/*
-		///Helicoptero por keyframes
+
+		/*Sube y baja*/
 		model = glm::mat4(1.0);
-		posblackhawk = animacion.movAvion();
-		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::rotate(model, animacion.rGiroAvion() * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 2.0f, 18.0f));
+		model = glm::scale(model, glm::vec3(9.0, 9.0, 9.00));
+		model = glm::rotate(model, movimiento.giroSubeBaja(), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Avion_Lego_M.RenderModel(); */
+		SubeBaja_M.RenderModel();
+
+		/*Sube y baja*/
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(20.0f, 1.0f, 18.0f));
+		model = glm::scale(model, glm::vec3(9.0, 9.0, 9.0));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Punta_M.RenderModel();
 
 		////////////BATMAN LEGO DIBUJO//////////////////
 		
@@ -1111,24 +1117,6 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		HelicesPLego_M.RenderModel();
 		model = modelauxH = posicionHelicoptero;
-
-		/* Se deja para recordar lo de traspaencia
-		//Agave �qu� sucede si lo renderizan antes del coche y de la pista?
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -1.7f, -2.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//blending: transparencia o traslucidez
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		Tagave.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		meshList[0]->RenderMesh();
-		glDisable(GL_BLEND);*/
-
-
-
-
 
 		///////////////////////////COSAS NUEVAS//////////////////////////7
 
