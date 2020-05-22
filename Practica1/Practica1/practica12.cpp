@@ -168,6 +168,10 @@ Model LlantaT_M;
 Model Avion_Lego_M;
 Model Jardinera_M;
 
+/*Digimon*/
+Model Guilmon_M;
+Model Dukemon_M;
+Model Barc_M;
 
 //-.-.-.-.-.- -.-.-.-.-.- Animaciones -.-.-.-.-.- -.-.-.-.-.- /
 AnimacionKF animacion;
@@ -435,6 +439,12 @@ int main()
 	LlantaT_M = Model();
 	LlantaT_M.LoadModel("Models/Nuevo/LlantaT.obj");
 
+	Guilmon_M = Model();
+	Guilmon_M.LoadModel("Models/Guilmon.obj");
+	Dukemon_M = Model();
+	Dukemon_M.LoadModel("Models/Dukemon-Final-2.obj");
+	Barc_M = Model();
+	Barc_M.LoadModel("Models/barc.obj");
 
 	glm::vec3 posblackhawk = glm::vec3(2.0f, 0.0f, 0.0f);
 	glm::vec3 posbici = glm::vec3(2.0f, 0.0f, 0.0f);
@@ -476,6 +486,8 @@ int main()
 	lum = Luminaria(pointLights, spotLights);
 	int itBloc, itBloc2;
 	glm::mat4 modelblo(1.0);
+	float tam_guilmon;
+	float tam_dukemon;
 
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -647,6 +659,44 @@ int main()
 		model = glm::scale(model, glm::vec3(9.0, 9.0, 9.0));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Punta_M.RenderModel();
+
+		/*Ovni*/
+		model = glm::mat4(1.0);
+		model = glm::translate(model, movimiento.giroEspOBJ1(mainWindow.getUFO()));
+		model = glm::rotate(model, movimiento.giroEsp(), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.025, 0.025, 0.025));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barc_M.RenderModel();
+
+		/*Digimon*/
+		tam_guilmon = movimiento.tamGuilmon();
+		if (tam_guilmon > 0.01)
+		{
+			model = glm::mat4(1.0);
+			model = glm::translate(model, glm::vec3(0.0f, 15.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(tam_guilmon, tam_guilmon, tam_guilmon));
+			model = glm::rotate(model, movimiento.evolucion(true), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+			Guilmon_M.RenderModel();
+		}
+		else {
+			tam_dukemon = movimiento.tamDukelmon();
+			model = glm::mat4(1.0);
+			model = glm::translate(model, glm::vec3(0.0f, 15.0f, 0.0f));
+			model = glm::scale(model, glm::vec3(tam_dukemon, tam_dukemon, tam_dukemon));
+			if (tam_dukemon <= 2.0) {
+				model = glm::rotate(model, movimiento.evolucion(true), glm::vec3(0.0f, 1.0f, 0.0f));
+			}
+			model = glm::rotate(model, movimiento.evolucion(false), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+			Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+			Dukemon_M.RenderModel();
+			//Se mantiene eszperando hasta la señal de reinicio
+			movimiento.digievolucion(mainWindow.getdigi());
+		}
+
+
 
 		////////////BATMAN LEGO DIBUJO//////////////////
 		
@@ -1351,43 +1401,6 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		PuertaBano_M.RenderModel();
 
-
-	
-
-		/////Pasto
-		/*
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Pasto_M.RenderModel();
-
-		
-		/////Pavimento
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Pavimento_M.RenderModel();
-
-		/////Pavimento Circulo
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -0.45f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		PavimentoCirculo_M.RenderModel();
-
-		/////Pavimento Circulito
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -0.45f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		PavimentoCirculito_M.RenderModel();
-		*/
 
 		/////Arbusto ** Debe ir al final para menor perdida de transparencia
 		model = glm::mat4(1.0);

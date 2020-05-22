@@ -28,6 +28,8 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 
 	botonKi = false;
 	audio = true;
+	digiEvolucion = false;
+	UFO = false;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -198,7 +200,19 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->audio = !theWindow->audio;
 		}
 
+	/*Nuevas teclas*/
 
+	if (key == GLFW_KEY_7 && action == GLFW_PRESS)
+	{
+		theWindow->digiEvolucion = !theWindow->digiEvolucion;
+
+	}
+
+	if (key == GLFW_KEY_8 && action == GLFW_PRESS)
+	{
+		theWindow->UFO = !theWindow->UFO;
+
+	}
 		if (key >= 0 && key < 1024)
 		{
 			if (action == GLFW_PRESS)

@@ -19,6 +19,11 @@ public:
 	float giroKitY();
 	float giroSubeBaja();
 	float giroKitZ();
+	glm::vec3 giroEspOBJ1(bool edoUFO);
+	float evolucion(bool girar);
+	float tamGuilmon();
+
+	float tamDukelmon();
 
 	glm::vec3 getMovCir();
 	glm::vec3 getMovLin();
@@ -26,8 +31,11 @@ public:
 	glm::vec3 getMovLin_2();
 
 	float horaDia();
+	void digievolucion(bool reinicia);
 	GLfloat  time();
 	float getDeltaTime();
+
+	float giroEsp();
 	~Movimiento();
 
 private:
@@ -36,6 +44,8 @@ private:
 	float toRadians;
 
 	float giro(float p_ini, float p_final, float p_actual);
+
+	glm::vec3 giroEspiral(float x, float y, float z, float tetha);
 
 	//Posicion de BH
 	float posX_BH;
@@ -81,4 +91,18 @@ private:
 	float giroY_SB;
 	int Dir_giroSB;
 
+	float esp_X ;
+	float esp_Y ;
+	float esp_Z ;
+
+	float esp_theta;
+
+	float obj1_X;
+	float obj1_Y;
+	float obj1_Z;
+
+	//digimon
+	float digimon_giroY;
+	float tam_guilmon;
+	float tam_dukemon;
 };

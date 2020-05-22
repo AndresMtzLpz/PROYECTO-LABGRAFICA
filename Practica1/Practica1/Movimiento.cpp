@@ -51,6 +51,18 @@ Movimiento::Movimiento()
 	DirX_luzSP = 1;
 	giroY_SB = 0;
 	Dir_giroSB = 1;
+
+	esp_X = 0.0;
+	esp_Y = 35.0;
+	esp_Z = 0.0;
+	esp_theta = 0.0;
+
+	obj1_X = 0.0;
+	obj1_Y = 0.0;
+	obj1_Z = 0.0;
+	digimon_giroY = 0.0;
+	tam_guilmon = 5.0;
+	tam_dukemon = 0.01;
 }
 
 glm::vec3 Movimiento::movBlackHawk(float movOffset, bool despegue_BH)
@@ -284,7 +296,7 @@ float Movimiento::giroSubeBaja()
 {
 	if (abs(giroY_SB) >= 30) {
 		Dir_giroSB *= -1;
-		giroY_SB += deltaTime * 5.0 * Dir_giroSB; //Evita rebotes
+		giroY_SB += deltaTime * 7.0 * Dir_giroSB; //Evita rebotes
 	}
 	giroY_SB += deltaTime * 3.0 * Dir_giroSB;
 	return giroY_SB * toRadians;
@@ -326,13 +338,73 @@ float Movimiento::giro(float p_ini, float p_final, float p_actual)
 	return (p_actual-p_ini)/mag_giro;
 }
 
+glm::vec3 Movimiento::giroEspOBJ1(bool edoUFO) {
+	glm::vec3 pos;
+	if (!edoUFO)
+	{
+		esp_theta = 0.0;
+		esp_X = 0.0;
+		esp_Y = 35.0;
+		esp_Z = 0.0;
+		pos = glm::vec3(0.0, 0.0, 0.0);
+	}
+	else {
+		esp_theta += deltaTime;
+		pos = giroEspiral(esp_X, esp_Y, esp_Z, esp_theta);
+		esp_X = pos.x;
+		esp_Y = pos.y;
+		esp_Z = pos.z;
+	}
+	return pos;
+}
+
+glm::vec3 Movimiento::giroEspiral(float x, float y, float z, float tetha) {
+		y -= deltaTime*0.22;
+		x = 1 * tetha * cos(tetha);
+		z = 1 * tetha * sin(tetha);
+	return glm::vec3(x,y,z);
+}
+
+float Movimiento::giroEsp() {
+	return esp_theta*0.8;
+}
+
 float Movimiento::horaDia() {
 	contHora += deltaTime * 15;
 	//printf("%d \n\n", (int)contHora % 24);
 	return (int)contHora % 2400;
 }
 
+float Movimiento::evolucion(bool girar)
+{
+	if (girar)
+	{
+		digimon_giroY += deltaTime * 8.5896;
+	}
+	return digimon_giroY * toRadians;
+}
 
+float Movimiento::tamGuilmon()
+{
+	tam_guilmon -= deltaTime * 0.23;
+	return tam_guilmon;
+}
+
+float Movimiento::tamDukelmon()
+{
+	if (tam_dukemon <= 2.0) {
+		tam_dukemon += deltaTime * 0.23;
+	}
+	return tam_dukemon;
+}
+
+void Movimiento::digievolucion(bool reinicia) {
+	if (reinicia) {
+		digimon_giroY = 0;
+		tam_guilmon = 4.5;
+		tam_dukemon = 0.01;
+	}
+}
 GLfloat Movimiento::time()
 {
 	GLfloat now = glfwGetTime();

@@ -27,6 +27,8 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	bool getbutonKi() { return botonKi; }
 	bool getAudio() { return audio; }
+	bool getUFO() { return UFO; }
+	bool getdigi() { return digiEvolucion; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
@@ -58,6 +60,8 @@ private:
 
 	bool botonKi;
 	bool audio;
+	bool digiEvolucion;
+	bool UFO;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
